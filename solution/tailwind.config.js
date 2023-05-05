@@ -8,6 +8,9 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
+      boxShadow: {
+        "3lg-black": "0 90px 70px 50px #101018",
+      },
       colors: {
         // Primary
         brightBlue: "hsl(220, 98%, 61%)",
@@ -18,14 +21,14 @@ export default {
         veryLightGrayishBlue: "hsl(236, 33%, 92%)",
         lightGrayishBlue: "hsl(233, 11%, 84%)",
         darkGrayishBlue: "hsl(236, 9%, 61%)",
-        veryDarkGrayishBlue: "hsl(235, 19%, 35%)",
+        veryDarkGrayishBlueLightTheme: "hsl(235, 19%, 35%)",
         // Neutral, dark theme
         veryDarkBlue: "hsl(235, 21%, 11%)",
         veryDarkDesaturatedBlue: "hsl(235, 24%, 19%)",
         lightGrayishBlue: "hsl(234, 39%, 85%)",
         lightGrayishBlueHover: "hsl(236, 33%, 92%)",
         darkGrayishBlue: "hsl(234, 11%, 52%)",
-        veryDarkGrayishBlue: "hsl(237, 14%, 26%)",
+        veryDarkGrayishBlueDarkTheme: "hsl(237, 14%, 26%)",
         veryDarkGrayishBlue: "hsl(233, 14%, 35%)",
       },
     },

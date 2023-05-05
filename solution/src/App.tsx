@@ -1,5 +1,6 @@
 import { Header } from "./components/Header";
 import { useState } from "react";
+import List from "./components/todo/List";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -10,9 +11,9 @@ function App() {
 
   return (
     <div className={theme}>
-      <div className="min-h-screen bg-veryLightGrayishBlue dark:bg-veryDarkBlue text-red-300">
+      <div className="min-h-screen min-w-[275px] bg-veryLightGrayishBlue dark:bg-veryDarkBlue text-lightGrayishBlue">
         <Header updateTheme={updateTheme} isDarkTheme={theme} />
-        Hello World
+        <List />
       </div>
     </div>
   );
