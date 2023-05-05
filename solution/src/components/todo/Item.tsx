@@ -18,8 +18,8 @@ export const Item = ({ item }: { item: { text: string; status: string } }) => {
           )}
         </button>
         <p
-          className={`ml-2 ${
-            isCompleted && "text-darkGrayishBlue line-through text-sm"
+          className={`ml-2 text-xs ${
+            isCompleted && "text-darkGrayishBlue line-through"
           }`}
         >
           {item.text}

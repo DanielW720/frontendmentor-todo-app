@@ -26,8 +26,8 @@ const List = () => {
           })}
         </div>
         {/* // Clear completed button */}
-        <div className="min-h-[3rem] dark:bg-veryDarkDesaturatedBlue text-darkGrayishBlue text-sm flex justify-between items-center pl-4 pr-4">
-          <p>3 Items left</p>
+        <div className="min-h-[3rem] dark:bg-veryDarkDesaturatedBlue text-darkGrayishBlue text-xs flex justify-between items-center pl-4 pr-4">
+          <p>{data.items.length} Items left</p>
           <button>Clear Completed</button>
         </div>
       </div>
@@ -48,7 +48,7 @@ const List = () => {
       </div>
 
       {/* // Drag and drop to reorder list */}
-      <p className="text-darkGrayishBlue text-center">
+      <p className="text-darkGrayishBlue text-center text-sm">
         Drag and drop to reorder list
       </p>
     </div>
@@ -69,6 +69,18 @@ const data = {
     },
     {
       text: "10 minutes meditation",
+      status: "active",
+    },
+    {
+      text: "Read for 1 hour",
+      status: "active",
+    },
+    {
+      text: "Pick up groceries",
+      status: "active",
+    },
+    {
+      text: "Complete Todo App on Frontend Mentor",
       status: "active",
     },
   ],
