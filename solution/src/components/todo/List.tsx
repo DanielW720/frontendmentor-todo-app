@@ -2,10 +2,31 @@ import { Item } from "./Item";
 import { useState } from "react";
 
 const List = () => {
+  const [items, setItems] = useState(data.items);
   const [filter, setFilter] = useState("All");
 
-  const filterItems = (newFilter: string) => {
+  /**
+   * Update the filter option.
+   * @param newFilter The chosen filter
+   */
+  const onFilterChangeHandler = (newFilter: string) => {
     setFilter(newFilter);
+  };
+
+  /**
+   * Update the status of an item with given id.
+   * @param id Id of the item
+   * @param status New status of the item
+   */
+  const onStatusChangeHandler = (id: number, status: string) => {
+    // items[id].status = status;
+    let item = items[id];
+    item.status = status;
+    setItems((prevItems) => [
+      ...prevItems,
+      item,
+      { id: 10, status: "active", text: "tjo" },
+    ]);
   };
 
   return (
@@ -22,7 +43,13 @@ const List = () => {
         {/* // List of items */}
         <div className="max-h-[250px] overflow-scroll ">
           {data.items.map((item, idx) => {
-            return <Item key={idx} item={item} />;
+            return (
+              <Item
+                key={idx}
+                item={item}
+                onStatusChangeHandler={onStatusChangeHandler}
+              />
+            );
           })}
         </div>
         {/* // Clear completed button */}
@@ -39,7 +66,7 @@ const List = () => {
             <button
               key={idx}
               className={`${filterOption === filter && "text-brightBlue"}`}
-              onClick={() => filterItems(filterOption)}
+              onClick={() => onFilterChangeHandler(filterOption)}
             >
               {filterOption}
             </button>
@@ -60,28 +87,34 @@ export default List;
 const data = {
   items: [
     {
+      id: 0,
       text: "Complete online JavaScript course",
       status: "completed",
     },
     {
+      id: 1,
       text: "Jog around the park 3x",
       status: "active",
     },
     {
+      id: 2,
       text: "10 minutes meditation",
       status: "active",
     },
-    {
-      text: "Read for 1 hour",
-      status: "active",
-    },
-    {
-      text: "Pick up groceries",
-      status: "active",
-    },
-    {
-      text: "Complete Todo App on Frontend Mentor",
-      status: "active",
-    },
+    // {
+    //   id: 3,
+    //   text: "Read for 1 hour",
+    //   status: "active",
+    // },
+    // {
+    //   id: 4,
+    //   text: "Pick up groceries",
+    //   status: "active",
+    // },
+    // {
+    //   id: 5,
+    //   text: "Complete Todo App on Frontend Mentor",
+    //   status: "active",
+    // },
   ],
 };
