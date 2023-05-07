@@ -20,11 +20,19 @@ export const CreateItem = ({
       <button type="submit">
         <div className="h-6 w-6 bg-inherit rounded-full border-[1px] border-darkGrayishBlue"></div>
       </button>
-      <input
+      {/* <input
         placeholder="Create a new todo..."
         onChange={(e) => setNewTaskInput(e.target.value)}
         className="text-darkGrayishBlue ml-2 bg-inherit"
-      />
+      /> */}
+      <input
+        type="text"
+        id="create_new_todo"
+        className="text-darkGrayishBlue ml-2 bg-inherit outline-none"
+        placeholder="Create a new todo..."
+        onChange={(e) => setNewTaskInput(e.target.value)}
+        required
+      ></input>
     </form>
   );
 };

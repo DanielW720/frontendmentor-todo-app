@@ -20,6 +20,16 @@ const List = () => {
   }, []);
 
   /**
+   * Find index of item with given id.
+   * @param id Id of the item
+   * @returns The index of the item in the items list
+   */
+  function findIndexOf(id: string): number {
+    const item = items.find((item) => item.id === id) as Todo;
+    return items.indexOf(item);
+  }
+
+  /**
    * Update the filter option.
    * @param filter The chosen filter
    */
@@ -32,12 +42,8 @@ const List = () => {
    * @param id Id of the item
    */
   const onStatusChangeHandler = (id: string): void => {
-    // New list of items
     const newItems = [...items];
-    // Find index of item with given id
-    const item = newItems.find((item) => item.id === id) as Todo;
-    const idx = newItems.indexOf(item);
-    // Update the isActive attribute of the item
+    const idx = findIndexOf(id);
     newItems[idx] = { ...newItems[idx], isActive: !items[idx].isActive };
     setItems(newItems);
   };
@@ -56,6 +62,13 @@ const List = () => {
     setItems(newItems);
   };
 
+  const onRemoveItemHandler = (id: string): void => {
+    const idx = findIndexOf(id);
+    const newItems = [...items];
+    newItems.splice(idx, 1);
+    setItems(newItems);
+  };
+
   return (
     <div className=" mr-8 ml-8 relative bottom-24">
       <CreateItem addTodo={onSubmitNewTodoHandler} />
@@ -69,6 +82,7 @@ const List = () => {
                 key={idx}
                 item={item}
                 onStatusChangeHandler={onStatusChangeHandler}
+                onRemoveItemHandler={onRemoveItemHandler}
               />
             );
           })}

@@ -4,9 +4,11 @@ import iconCheck from "../../assets/images/icon-check.svg";
 export const Item = ({
   item,
   onStatusChangeHandler,
+  onRemoveItemHandler,
 }: {
   item: { id: string; title: string; isActive: boolean };
   onStatusChangeHandler: (id: string) => void;
+  onRemoveItemHandler: (id: string) => void;
 }) => {
   return (
     <div className="min-h-[3.5rem] border-veryDarkGrayishBlue border-b-[1px] dark:bg-veryDarkDesaturatedBlue flex justify-between items-center pl-4 pr-4 ">
@@ -28,7 +30,7 @@ export const Item = ({
           {item.title}
         </p>
       </div>
-      <button>
+      <button onClick={() => onRemoveItemHandler(item.id)}>
         <img src={iconCross} alt="Cross icon" width="75%" />
       </button>
     </div>
