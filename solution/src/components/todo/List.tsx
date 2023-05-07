@@ -50,7 +50,7 @@ const List = () => {
 
   /**
    * Submit a new todo item.
-   * @param title of the new todo item
+   * @param title Title of the new todo item
    */
   const onSubmitNewTodoHandler = (title: string) => {
     const newItems = [...items];
@@ -62,11 +62,26 @@ const List = () => {
     setItems(newItems);
   };
 
+  /**
+   * Remove item from item list.
+   * @param id id of the item
+   */
   const onRemoveItemHandler = (id: string): void => {
     const idx = findIndexOf(id);
     const newItems = [...items];
     newItems.splice(idx, 1);
     setItems(newItems);
+  };
+
+  const getFilteredItemList = () => {
+    switch (filter) {
+      case "Active":
+        return items.filter((item) => item.isActive);
+      case "Completed":
+        return items.filter((item) => !item.isActive);
+      default:
+        return items;
+    }
   };
 
   return (
@@ -76,7 +91,7 @@ const List = () => {
       <div className="rounded-md overflow-hidden shadow-3lg-black">
         {/* // List of items */}
         <div className="max-h-[250px] overflow-scroll">
-          {items.map((item, idx) => {
+          {getFilteredItemList().map((item, idx) => {
             return (
               <Item
                 key={idx}
