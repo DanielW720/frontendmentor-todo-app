@@ -1,16 +1,26 @@
 import { Item } from "./Item";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+type Todo = { id: number; title: string; isActive: boolean };
+type TodoList = Todo[];
+
+const defaultTodoList: TodoList = [];
 
 const List = () => {
-  const [items, setItems] = useState(data.items);
+  const [items, setItems] = useState<TodoList>(defaultTodoList);
   const [filter, setFilter] = useState("All");
+
+  // Fetch items on first render
+  useEffect(() => {
+    setItems(data.items);
+  }, []);
 
   /**
    * Update the filter option.
-   * @param newFilter The chosen filter
+   * @param filter The chosen filter
    */
-  const onFilterChangeHandler = (newFilter: string) => {
-    setFilter(newFilter);
+  const onFilterChangeHandler = (filter: string) => {
+    setFilter(filter);
   };
 
   /**
@@ -18,15 +28,10 @@ const List = () => {
    * @param id Id of the item
    * @param status New status of the item
    */
-  const onStatusChangeHandler = (id: number, status: string) => {
-    // items[id].status = status;
-    let item = items[id];
-    item.status = status;
-    setItems((prevItems) => [
-      ...prevItems,
-      item,
-      { id: 10, status: "active", text: "tjo" },
-    ]);
+  const onStatusChangeHandler = (id: number): void => {
+    const item = items[id];
+    item.isActive = !item.isActive;
+    setItems([...items, item]);
   };
 
   return (
@@ -42,7 +47,7 @@ const List = () => {
       <div className="rounded-md overflow-hidden shadow-3lg-black">
         {/* // List of items */}
         <div className="max-h-[250px] overflow-scroll ">
-          {data.items.map((item, idx) => {
+          {items.map((item, idx) => {
             return (
               <Item
                 key={idx}
@@ -54,7 +59,7 @@ const List = () => {
         </div>
         {/* // Clear completed button */}
         <div className="min-h-[3rem] dark:bg-veryDarkDesaturatedBlue text-darkGrayishBlue text-xs flex justify-between items-center pl-4 pr-4">
-          <p>{data.items.length} Items left</p>
+          <p>{items.length} Items left</p>
           <button>Clear Completed</button>
         </div>
       </div>
@@ -88,33 +93,33 @@ const data = {
   items: [
     {
       id: 0,
-      text: "Complete online JavaScript course",
-      status: "completed",
+      title: "Complete online JavaScript course",
+      isActive: false,
     },
     {
       id: 1,
-      text: "Jog around the park 3x",
-      status: "active",
+      title: "Jog around the park 3x",
+      isActive: true,
     },
     {
       id: 2,
-      text: "10 minutes meditation",
-      status: "active",
+      title: "10 minutes meditation",
+      isActive: true,
     },
-    // {
-    //   id: 3,
-    //   text: "Read for 1 hour",
-    //   status: "active",
-    // },
-    // {
-    //   id: 4,
-    //   text: "Pick up groceries",
-    //   status: "active",
-    // },
-    // {
-    //   id: 5,
-    //   text: "Complete Todo App on Frontend Mentor",
-    //   status: "active",
-    // },
+    {
+      id: 3,
+      title: "Read for 1 hour",
+      isActive: true,
+    },
+    {
+      id: 4,
+      title: "Pick up groceries",
+      isActive: true,
+    },
+    {
+      id: 5,
+      title: "Complete Todo App on Frontend Mentor",
+      isActive: true,
+    },
   ],
 };

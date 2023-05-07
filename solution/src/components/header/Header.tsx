@@ -1,7 +1,7 @@
-import imageSun from "./../assets/images/icon-sun.svg";
-import imageMoon from "./../assets/images/icon-moon.svg";
-import imageBgMobileLight from "./../assets/images/bg-mobile-light.jpg";
-import imageBgMobileDark from "./../assets/images/bg-mobile-dark.jpg";
+import imageSun from "../../assets/images/icon-sun.svg";
+import imageMoon from "../../assets/images/icon-moon.svg";
+import imageBgMobileLight from "../../assets/images/bg-mobile-light.jpg";
+import imageBgMobileDark from "../../assets/images/bg-mobile-dark.jpg";
 
 export const Header = ({
   isDarkTheme,
