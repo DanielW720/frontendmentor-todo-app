@@ -8,6 +8,9 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
+      transitionProperty: {
+        height: "height",
+      },
       boxShadow: {
         "3lg-black": "0 90px 70px 50px #101018",
       },

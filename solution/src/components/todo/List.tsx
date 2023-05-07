@@ -1,3 +1,4 @@
+import { CreateItem } from "./CreateItem";
 import { Item } from "./Item";
 import { useEffect, useState } from "react";
 
@@ -26,27 +27,20 @@ const List = () => {
   /**
    * Update the status of an item with given id.
    * @param id Id of the item
-   * @param status New status of the item
    */
   const onStatusChangeHandler = (id: number): void => {
-    const item = items[id];
-    item.isActive = !item.isActive;
-    setItems([...items, item]);
+    const newItems = [...items];
+    newItems[id] = { ...items[id], isActive: !items[id].isActive };
+    setItems(newItems);
   };
 
   return (
     <div className=" mr-8 ml-8 relative bottom-24">
-      {/* // Create a new todo... */}
-      <div className="h-[3.5rem] mb-5 pl-4 dark:bg-veryDarkDesaturatedBlue rounded-md flex justify-start items-center">
-        <button>
-          <div className="h-6 w-6 bg-inherit rounded-full border-[1px] border-darkGrayishBlue"></div>
-        </button>
-        <p className="text-darkGrayishBlue ml-2">Create a new todo...</p>
-      </div>
+      <CreateItem />
 
       <div className="rounded-md overflow-hidden shadow-3lg-black">
         {/* // List of items */}
-        <div className="max-h-[250px] overflow-scroll ">
+        <div className="max-h-[250px] overflow-scroll">
           {items.map((item, idx) => {
             return (
               <Item
@@ -57,6 +51,7 @@ const List = () => {
             );
           })}
         </div>
+
         {/* // Clear completed button */}
         <div className="min-h-[3rem] dark:bg-veryDarkDesaturatedBlue text-darkGrayishBlue text-xs flex justify-between items-center pl-4 pr-4">
           <p>{items.length} Items left</p>
