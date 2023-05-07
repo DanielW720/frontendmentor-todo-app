@@ -84,6 +84,11 @@ const List = () => {
     }
   };
 
+  const deleteCompletedItems = () => {
+    const newList = items.filter((item) => item.isActive);
+    setItems(newList);
+  };
+
   return (
     <div className=" mr-8 ml-8 relative bottom-24">
       <CreateItem addTodo={onSubmitNewTodoHandler} />
@@ -106,7 +111,7 @@ const List = () => {
         {/* // Clear completed button */}
         <div className="min-h-[3rem] dark:bg-veryDarkDesaturatedBlue text-darkGrayishBlue text-xs flex justify-between items-center pl-4 pr-4">
           <p>{items.length} Items left</p>
-          <button>Clear Completed</button>
+          <button onClick={deleteCompletedItems}>Clear Completed</button>
         </div>
       </div>
 
@@ -124,7 +129,6 @@ const List = () => {
           );
         })}
       </div>
-
       {/* // Drag and drop to reorder list */}
       <p className="text-darkGrayishBlue text-center text-sm">
         Drag and drop to reorder list
