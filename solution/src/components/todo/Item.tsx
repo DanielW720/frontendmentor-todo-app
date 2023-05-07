@@ -5,8 +5,8 @@ export const Item = ({
   item,
   onStatusChangeHandler,
 }: {
-  item: { id: number; title: string; isActive: boolean };
-  onStatusChangeHandler: (id: number) => void;
+  item: { id: string; title: string; isActive: boolean };
+  onStatusChangeHandler: (id: string) => void;
 }) => {
   return (
     <div className="min-h-[3.5rem] border-veryDarkGrayishBlue border-b-[1px] dark:bg-veryDarkDesaturatedBlue flex justify-between items-center pl-4 pr-4 ">
