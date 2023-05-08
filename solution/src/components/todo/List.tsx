@@ -2,6 +2,8 @@ import { CreateItem } from "./CreateItem";
 import { Item } from "./Item";
 import { useEffect, useState } from "react";
 import { v4 } from "uuid";
+import imageSun from "../../assets/images/icon-sun.svg";
+import imageMoon from "../../assets/images/icon-moon.svg";
 
 type Todo = { id: string; title: string; isActive: boolean };
 type TodoList = Todo[];
@@ -10,7 +12,13 @@ const defaultTodoList: TodoList = [];
 type Filter = "All" | "Active" | "Completed";
 const defaultFilter: Filter = "All";
 
-const List = () => {
+const List = ({
+  updateTheme,
+  isDarkTheme,
+}: {
+  updateTheme: any;
+  isDarkTheme: boolean;
+}) => {
   const [items, setItems] = useState<TodoList>(defaultTodoList);
   const [filter, setFilter] = useState<Filter>(defaultFilter);
 
@@ -90,10 +98,25 @@ const List = () => {
   };
 
   return (
-    <div className="mr-8 ml-8 relative bottom-24">
+    <div className="relative pl-8 pr-8 bottom-52 w-full max-w-md">
+      <div className="pt-12 w-full flex justify-between items-start">
+        <h1 className="text-white tracking-[0.7rem] text-3xl relative z-10 font-bold">
+          TODO
+        </h1>
+        <button onClick={updateTheme}>
+          {
+            <img
+              src={isDarkTheme ? imageSun : imageMoon}
+              alt="Sun icon"
+              className="relative z-10"
+            />
+          }
+        </button>
+      </div>
+
       <CreateItem addTodo={onSubmitNewTodoHandler} />
 
-      <div className="rounded-md overflow-hidden shadow-3lg-light dark:shadow-3lg-dark">
+      <div className="rounded-md w-full overflow-hidden shadow-3lg-light dark:shadow-3lg-dark">
         {/* // List of items */}
         <div className="max-h-[290px] overflow-y-scroll">
           {getFilteredItemList().map((item, idx) => {
@@ -107,16 +130,14 @@ const List = () => {
             );
           })}
         </div>
-
         {/* // Clear completed button */}
         <div className="min-h-[3rem] bg-veryLightGray dark:bg-veryDarkDesaturatedBlue text-lightGrayishBlue dark:text-darkGrayishBlue text-xs flex justify-between items-center pl-4 pr-4">
           <p>{items.length} Items left</p>
           <button onClick={deleteCompletedItems}>Clear Completed</button>
         </div>
       </div>
-
       {/* // Filter options */}
-      <div className="min-h-[3rem] mt-5 mb-8 pr-10 pl-10 w-full bg-veryLightGray text-darkGrayishBlue font-bold dark:bg-veryDarkDesaturatedBlue rounded-md flex items-center justify-around">
+      <div className="min-h-[3rem] w-full mt-5 mb-8 pr-10 pl-10 bg-veryLightGray text-darkGrayishBlue font-bold dark:bg-veryDarkDesaturatedBlue rounded-md flex items-center justify-around">
         {["All", "Active", "Completed"].map((filterOption, idx) => {
           return (
             <button

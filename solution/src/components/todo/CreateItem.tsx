@@ -17,7 +17,7 @@ export const CreateItem = ({
       onSubmit={(e) => {
         handleSubmit(e);
       }}
-      className="h-[3.2rem] mb-5 pl-4 bg-veryLightGray dark:bg-veryDarkDesaturatedBlue rounded-md flex justify-start items-center"
+      className="h-[3.2rem] w-full mt-5 mb-5 pl-4 bg-veryLightGray dark:bg-veryDarkDesaturatedBlue rounded-md flex justify-start items-center"
     >
       <button type="submit">
         <div className="h-6 w-6 bg-inherit rounded-full border-[1px] border-lightGrayishBlue dark:border-darkGrayishBlue"></div>

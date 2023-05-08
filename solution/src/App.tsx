@@ -12,8 +12,10 @@ function App() {
   return (
     <div className={`${theme} max-h-screen overflow-hidden`}>
       <div className="min-h-screen min-w-[275px] bg-white dark:bg-veryDarkBlue text-lightGrayishBlue">
-        <Header updateTheme={updateTheme} isDarkTheme={theme} />
-        <List />
+        <Header isDarkTheme={theme === "dark"} />
+        <div className="flex justify-center">
+          <List updateTheme={updateTheme} isDarkTheme={theme === "dark"} />
+        </div>
       </div>
     </div>
   );
