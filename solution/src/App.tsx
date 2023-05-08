@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div className={`${theme} max-h-screen overflow-hidden`}>
-      <div className="min-h-screen min-w-[275px] bg-veryLightGrayishBlue dark:bg-veryDarkBlue text-lightGrayishBlue">
+      <div className="min-h-screen min-w-[275px] bg-white dark:bg-veryDarkBlue text-lightGrayishBlue">
         <Header updateTheme={updateTheme} isDarkTheme={theme} />
         <List />
       </div>

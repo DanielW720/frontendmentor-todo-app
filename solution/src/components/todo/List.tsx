@@ -90,12 +90,12 @@ const List = () => {
   };
 
   return (
-    <div className=" mr-8 ml-8 relative bottom-24">
+    <div className="mr-8 ml-8 relative bottom-24">
       <CreateItem addTodo={onSubmitNewTodoHandler} />
 
-      <div className="rounded-md overflow-hidden shadow-3lg-black">
+      <div className="rounded-md overflow-hidden shadow-3lg-light dark:shadow-3lg-dark">
         {/* // List of items */}
-        <div className="max-h-[250px] overflow-scroll">
+        <div className="max-h-[290px] overflow-y-scroll">
           {getFilteredItemList().map((item, idx) => {
             return (
               <Item
@@ -109,14 +109,14 @@ const List = () => {
         </div>
 
         {/* // Clear completed button */}
-        <div className="min-h-[3rem] dark:bg-veryDarkDesaturatedBlue text-darkGrayishBlue text-xs flex justify-between items-center pl-4 pr-4">
+        <div className="min-h-[3rem] bg-veryLightGray dark:bg-veryDarkDesaturatedBlue text-lightGrayishBlue dark:text-darkGrayishBlue text-xs flex justify-between items-center pl-4 pr-4">
           <p>{items.length} Items left</p>
           <button onClick={deleteCompletedItems}>Clear Completed</button>
         </div>
       </div>
 
       {/* // Filter options */}
-      <div className="min-h-[3rem] mt-5 mb-8 pr-10 pl-10 w-full text-darkGrayishBlue font-bold dark:bg-veryDarkDesaturatedBlue rounded-md flex items-center justify-around">
+      <div className="min-h-[3rem] mt-5 mb-8 pr-10 pl-10 w-full bg-veryLightGray text-darkGrayishBlue font-bold dark:bg-veryDarkDesaturatedBlue rounded-md flex items-center justify-around">
         {["All", "Active", "Completed"].map((filterOption, idx) => {
           return (
             <button

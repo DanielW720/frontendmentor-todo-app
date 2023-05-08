@@ -14,21 +14,18 @@ export const CreateItem = ({
 
   return (
     <form
-      onSubmit={handleSubmit}
-      className="h-[3.5rem] mb-5 pl-4 dark:bg-veryDarkDesaturatedBlue rounded-md flex justify-start items-center"
+      onSubmit={(e) => {
+        handleSubmit(e);
+      }}
+      className="h-[3.2rem] mb-5 pl-4 bg-veryLightGray dark:bg-veryDarkDesaturatedBlue rounded-md flex justify-start items-center"
     >
       <button type="submit">
-        <div className="h-6 w-6 bg-inherit rounded-full border-[1px] border-darkGrayishBlue"></div>
+        <div className="h-6 w-6 bg-inherit rounded-full border-[1px] border-lightGrayishBlue dark:border-darkGrayishBlue"></div>
       </button>
-      {/* <input
-        placeholder="Create a new todo..."
-        onChange={(e) => setNewTaskInput(e.target.value)}
-        className="text-darkGrayishBlue ml-2 bg-inherit"
-      /> */}
       <input
         type="text"
         id="create_new_todo"
-        className="text-darkGrayishBlue ml-2 bg-inherit outline-none"
+        className="text-darkGrayishBlue ml-2 bg-inherit outline-none text-sm"
         placeholder="Create a new todo..."
         onChange={(e) => setNewTaskInput(e.target.value)}
         required
