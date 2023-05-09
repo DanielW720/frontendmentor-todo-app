@@ -32,7 +32,10 @@ export const Item = ({
           {item.title}
         </p>
       </div>
-      <button onClick={() => onRemoveItemHandler(item.id)}>
+      <button
+        onClick={() => onRemoveItemHandler(item.id)}
+        className="md:hidden" // why though? weird design decision
+      >
         <img src={iconCross} alt="Cross icon" width="75%" />
       </button>
     </div>
