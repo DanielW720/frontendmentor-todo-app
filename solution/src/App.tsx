@@ -3,7 +3,7 @@ import { useState } from "react";
 import List from "./components/todo/List";
 
 function App() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
 
   const updateTheme = () => {
     setTheme((prevState) => (prevState === "dark" ? "" : "dark"));

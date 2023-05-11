@@ -128,7 +128,7 @@ const List = ({
 
       <div className="rounded-md w-full overflow-hidden shadow-3lg-light dark:shadow-3lg-dark">
         {/* // List of items */}
-        <div className="max-h-[290px] md:max-h-[400px] overflow-y-scroll">
+        <div className="max-h-[290px] md:max-h-[400px] overflow-y-scroll no-scrollbar">
           {getFilteredItemList().map((item, idx) => {
             return (
               <Item
