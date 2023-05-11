@@ -11,7 +11,7 @@ export const Item = ({
   onRemoveItemHandler: (id: string) => void;
 }) => {
   return (
-    <div className="min-h-[3rem] border-veryDarkGrayishBlue border-b-[1px] bg-veryLightGray dark:bg-veryDarkDesaturatedBlue flex justify-between items-center pl-4 pr-4 ">
+    <div className="min-h-[3rem] border-veryDarkGrayishBlue border-b-[1px] bg-veryLightGray dark:bg-veryDarkDesaturatedBlue flex justify-between items-center pl-4 pr-4 cursor-pointer">
       <div className="flex items-center">
         <button onClick={() => onStatusChangeHandler(item.id)}>
           {item.isActive ? (
@@ -23,7 +23,7 @@ export const Item = ({
           )}
         </button>
         <p
-          className={`ml-2 text-xs font-bold ${
+          className={`ml-2 text-xs md:text-[0.9rem] font-bold ${
             item.isActive
               ? "text-darkGrayishBlue dark:text-lightGrayishBlue "
               : "dark:text-darkGrayishBlue line-through"

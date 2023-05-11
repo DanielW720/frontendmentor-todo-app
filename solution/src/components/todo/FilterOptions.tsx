@@ -13,9 +13,9 @@ export const FilterOptions = ({
         return (
           <button
             key={idx}
-            className={`${filterOption === filter && "text-brightBlue"} ${
-              idx === 1 && "pl-4 pr-4"
-            }`}
+            className={`cursor-pointer hover:text-veryDarkGrayishBlueLightTheme ${
+              filterOption === filter && "text-brightBlue hover:text-brightBlue"
+            } ${idx === 1 && "pl-4 pr-4"}`}
             onClick={() => onFilterChangeHandler(filterOption as Filter)}
           >
             {filterOption}

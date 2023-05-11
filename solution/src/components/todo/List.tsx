@@ -150,7 +150,12 @@ const List = ({
               filter={filter}
             />
           </div>
-          <button onClick={deleteCompletedItems}>Clear Completed</button>
+          <button
+            onClick={deleteCompletedItems}
+            className="cursor-pointer hover:font-bold"
+          >
+            Clear Completed
+          </button>
         </div>
       </div>
       <div className="h-[3rem] md:hidden mt-6 shadow-3lg-light dark:shadow-3lg-dark">
