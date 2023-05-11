@@ -12,8 +12,8 @@ export default {
         height: "height",
       },
       boxShadow: {
-        "3lg-dark": "0 90px 70px 50px #101018",
-        "3lg-light": "0 30px 50px 40px hsl(233, 11%, 84%)",
+        "3lg-dark": "0 50px 70px 10px #101018",
+        "3lg-light": "0 50px 70px 10px #e6e7ec",
       },
       colors: {
         // Primary

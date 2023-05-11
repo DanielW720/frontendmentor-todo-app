@@ -19,6 +19,7 @@ const List = ({
 }) => {
   const [items, setItems] = useState<TodoList>(defaultTodoList);
   const [filter, setFilter] = useState<Filter>(defaultFilter);
+  const itemsLeft = items.filter((item) => item.isActive).length;
 
   // Fetch items on first render
   useEffect(() => {
@@ -79,6 +80,10 @@ const List = ({
     setItems(newItems);
   };
 
+  /**
+   * Filter item list on chosen filter.
+   * @returns A filtered list of the items
+   */
   const getFilteredItemList = () => {
     switch (filter) {
       case "Active":
@@ -90,6 +95,9 @@ const List = ({
     }
   };
 
+  /**
+   * Delete completed items.
+   */
   const deleteCompletedItems = () => {
     const newList = items.filter((item) => item.isActive);
     setItems(newList);
@@ -113,14 +121,14 @@ const List = ({
   );
 
   return (
-    <div className="relative pl-8 pr-8 bottom-52 w-full max-w-lg">
+    <div className="relative pl-6 pr-6 bottom-52 w-full max-w-lg">
       {titleAndThemeSwitchMarkup}
 
       <CreateItem addTodo={onSubmitNewTodoHandler} />
 
       <div className="rounded-md w-full overflow-hidden shadow-3lg-light dark:shadow-3lg-dark">
         {/* // List of items */}
-        <div className="max-h-[290px] overflow-y-scroll">
+        <div className="max-h-[290px] md:max-h-[400px] overflow-y-scroll">
           {getFilteredItemList().map((item, idx) => {
             return (
               <Item
@@ -134,15 +142,23 @@ const List = ({
         </div>
 
         {/* // Clear completed button */}
-        <div className="min-h-[3rem] bg-veryLightGray dark:bg-veryDarkDesaturatedBlue text-lightGrayishBlue dark:text-darkGrayishBlue text-xs flex justify-between items-center pl-4 pr-4">
-          <p>{items.length} Items left</p>
+        <div className="h-[2.5rem] bg-veryLightGray dark:bg-veryDarkDesaturatedBlue text-veryDarkGrayishBlueLightTheme dark:text-darkGrayishBlue text-xs flex justify-between items-center pl-4 pr-4">
+          <p>{itemsLeft} Items left</p>
+          <div className="hidden md:block">
+            <FilterOptions
+              onFilterChangeHandler={onFilterChangeHandler}
+              filter={filter}
+            />
+          </div>
           <button onClick={deleteCompletedItems}>Clear Completed</button>
         </div>
       </div>
-      <FilterOptions
-        onFilterChangeHandler={onFilterChangeHandler}
-        filter={filter}
-      />
+      <div className="h-[3rem] md:hidden mt-6 shadow-3lg-light dark:shadow-3lg-dark">
+        <FilterOptions
+          onFilterChangeHandler={onFilterChangeHandler}
+          filter={filter}
+        />
+      </div>
       <p className="text-darkGrayishBlue text-center text-sm mt-10">
         Drag and drop to reorder list
       </p>

@@ -23,7 +23,7 @@ export const Item = ({
           )}
         </button>
         <p
-          className={`ml-2 text-xs ${
+          className={`ml-2 text-xs font-bold ${
             item.isActive
               ? "text-darkGrayishBlue dark:text-lightGrayishBlue "
               : "dark:text-darkGrayishBlue line-through"
@@ -32,10 +32,7 @@ export const Item = ({
           {item.title}
         </p>
       </div>
-      <button
-        onClick={() => onRemoveItemHandler(item.id)}
-        className="md:hidden" // why though? weird design decision
-      >
+      <button onClick={() => onRemoveItemHandler(item.id)}>
         <img src={iconCross} alt="Cross icon" width="75%" />
       </button>
     </div>

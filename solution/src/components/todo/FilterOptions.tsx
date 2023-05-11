@@ -8,7 +8,7 @@ export const FilterOptions = ({
   filter: Filter;
 }) => {
   return (
-    <div className="min-h-[3rem] w-full mt-5 bg-veryLightGray text-darkGrayishBlue font-bold dark:bg-veryDarkDesaturatedBlue rounded-md flex items-center justify-center lg:hidden">
+    <div className="h-full w-full bg-veryLightGray text-darkGrayishBlue font-bold dark:bg-veryDarkDesaturatedBlue rounded-md flex items-center justify-center">
       {["All", "Active", "Completed"].map((filterOption, idx) => {
         return (
           <button
