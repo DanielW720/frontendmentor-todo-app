@@ -199,25 +199,25 @@ const data = {
       title: "Jog around the park 3x",
       isActive: true,
     },
-    // {
-    //   id: v4(),
-    //   title: "10 minutes meditation",
-    //   isActive: true,
-    // },
-    // {
-    //   id: v4(),
-    //   title: "Read for 1 hour",
-    //   isActive: true,
-    // },
-    // {
-    //   id: v4(),
-    //   title: "Pick up groceries",
-    //   isActive: true,
-    // },
-    // {
-    //   id: v4(),
-    //   title: "Complete Todo App on Frontend Mentor",
-    //   isActive: true,
-    // },
+    {
+      id: v4(),
+      title: "10 minutes meditation",
+      isActive: true,
+    },
+    {
+      id: v4(),
+      title: "Read for 1 hour",
+      isActive: true,
+    },
+    {
+      id: v4(),
+      title: "Pick up groceries",
+      isActive: true,
+    },
+    {
+      id: v4(),
+      title: "Complete Todo App on Frontend Mentor",
+      isActive: true,
+    },
   ],
 };

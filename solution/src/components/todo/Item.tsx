@@ -15,8 +15,6 @@ export const Item = ({
 }) => {
   const [title, setTitle] = useState(item.title);
 
-  console.log(title);
-
   const onKeyDownHandler = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       // Time to update title
@@ -52,20 +50,10 @@ export const Item = ({
               ? "text-darkGrayishBlue dark:text-lightGrayishBlue "
               : "dark:text-darkGrayishBlue line-through"
           }`}
-          value={title}
+          value={item.title}
           onChange={(e) => setTitle(e.target.value)}
-          onKeyDown={onKeyDownHandler}
+          onKeyDown={(e) => onKeyDownHandler(e)}
         />
-
-        {/* <p
-          className={`w-full ml-2 text-xs md:text-[0.9rem] font-bold ${
-            item.isActive
-              ? "text-darkGrayishBlue dark:text-lightGrayishBlue "
-              : "dark:text-darkGrayishBlue line-through"
-          }`}
-        >
-          {item.title}
-        </p> */}
       </div>
       <button onClick={() => onRemoveItemHandler(item.id)}>
         <img src={iconCross} alt="Cross icon" width="75%" />
