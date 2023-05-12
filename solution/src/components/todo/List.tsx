@@ -60,12 +60,14 @@ const List = ({
    * @param title Title of the new todo item
    */
   const onSubmitNewTodoHandler = (title: string) => {
-    const newItems = [...items];
-    newItems.unshift({
-      id: v4(),
-      title: title,
-      isActive: true,
-    });
+    const newItems = [
+      {
+        id: v4(),
+        title: title,
+        isActive: true,
+      },
+      ...items,
+    ];
     setItems(newItems);
   };
 
@@ -120,6 +122,17 @@ const List = ({
     </div>
   );
 
+  const onUpdateItemHandler = (id: string, title: string) => {
+    const item = items.find((item) => item.id === id) as Todo;
+    item.title = title;
+    // Replace the item in the list
+    const newList = items.map(
+      (obj) => items.find((o) => o.id === obj.id) || obj
+    );
+    // Update the items with the new list
+    setItems(newList);
+  };
+
   return (
     <div className="relative pl-6 pr-6 bottom-52 w-full max-w-lg">
       {titleAndThemeSwitchMarkup}
@@ -136,6 +149,7 @@ const List = ({
                 item={item}
                 onStatusChangeHandler={onStatusChangeHandler}
                 onRemoveItemHandler={onRemoveItemHandler}
+                onUpdateItemHandler={onUpdateItemHandler}
               />
             );
           })}
@@ -185,25 +199,25 @@ const data = {
       title: "Jog around the park 3x",
       isActive: true,
     },
-    {
-      id: v4(),
-      title: "10 minutes meditation",
-      isActive: true,
-    },
-    {
-      id: v4(),
-      title: "Read for 1 hour",
-      isActive: true,
-    },
-    {
-      id: v4(),
-      title: "Pick up groceries",
-      isActive: true,
-    },
-    {
-      id: v4(),
-      title: "Complete Todo App on Frontend Mentor",
-      isActive: true,
-    },
+    // {
+    //   id: v4(),
+    //   title: "10 minutes meditation",
+    //   isActive: true,
+    // },
+    // {
+    //   id: v4(),
+    //   title: "Read for 1 hour",
+    //   isActive: true,
+    // },
+    // {
+    //   id: v4(),
+    //   title: "Pick up groceries",
+    //   isActive: true,
+    // },
+    // {
+    //   id: v4(),
+    //   title: "Complete Todo App on Frontend Mentor",
+    //   isActive: true,
+    // },
   ],
 };

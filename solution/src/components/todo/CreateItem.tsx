@@ -25,7 +25,6 @@ export const CreateItem = ({
       </button>
       <input
         type="text"
-        id="create_new_todo"
         className="w-full text-darkGrayishBlue focus:text-veryDarkGrayishBlueLightTheme dark:focus:text-lightGrayishBlue ml-2 bg-inherit outline-none text-sm md:text-[0.9rem] cursor-pointer"
         placeholder="Create a new todo..."
         onChange={(e) => setNewTaskInput(e.target.value)}
