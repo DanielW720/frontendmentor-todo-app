@@ -152,7 +152,7 @@ const List = ({
           </div>
           <button
             onClick={deleteCompletedItems}
-            className="cursor-pointer hover:font-bold"
+            className="cursor-pointer hover:font-bold hover:text-veryDarkGrayishBlueLightTheme dark:hover:text-lightGrayishBlue"
           >
             Clear Completed
           </button>

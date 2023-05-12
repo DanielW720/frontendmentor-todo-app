@@ -13,8 +13,10 @@ export const FilterOptions = ({
         return (
           <button
             key={idx}
-            className={`cursor-pointer hover:text-veryDarkGrayishBlueLightTheme ${
-              filterOption === filter && "text-brightBlue hover:text-brightBlue"
+            className={`cursor-pointer ${
+              filterOption === filter
+                ? "text-brightBlue hover:text-brightBlue"
+                : "hover:text-veryDarkGrayishBlueLightTheme dark:hover:text-lightGrayishBlue"
             } ${idx === 1 && "pl-4 pr-4"}`}
             onClick={() => onFilterChangeHandler(filterOption as Filter)}
           >

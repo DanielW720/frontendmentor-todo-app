@@ -11,19 +11,27 @@ export const Item = ({
   onRemoveItemHandler: (id: string) => void;
 }) => {
   return (
-    <div className="min-h-[3rem] border-veryDarkGrayishBlue border-b-[1px] bg-veryLightGray dark:bg-veryDarkDesaturatedBlue flex justify-between items-center pl-4 pr-4 cursor-pointer">
+    <div className="min-h-[3rem] border-veryDarkGrayishBlue border-b-[1px] bg-veryLightGray dark:bg-veryDarkDesaturatedBlue flex justify-between items-center pl-4 pr-4">
       <div className="flex items-center">
         <button onClick={() => onStatusChangeHandler(item.id)}>
-          {item.isActive ? (
-            <div className="h-6 w-6 flex items-center justify-center bg-inherit rounded-full border-[1px] border-lightGrayishBlue dark:border-darkGrayishBlue"></div>
-          ) : (
-            <div className="h-6 w-6 bg-gradient-to-br from-headerLeft to-headerRight flex items-center justify-center bg-inherit rounded-full border-[1px] border-darkGrayishBlue">
-              <img src={iconCheck} />
+          <div className="hover:bg-gradient-to-br from-headerLeft to-headerRight rounded-full bg-lightGrayishBlue dark:bg-darkGrayishBlue p-[1px] flex items-center justify-center">
+            <div
+              className={`h-[23px] w-[23px] flex items-center justify-center rounded-full ${
+                item.isActive
+                  ? "bg-veryLightGray dark:bg-veryDarkDesaturatedBlue"
+                  : "bg-gradient-to-br from-headerLeft to-headerRight"
+              }`}
+            >
+              <img
+                src={iconCheck}
+                alt="Checked icon"
+                className={`${item.isActive ? "hidden" : "block"}`}
+              />
             </div>
-          )}
+          </div>
         </button>
         <p
-          className={`ml-2 text-xs md:text-[0.9rem] font-bold ${
+          className={`w-full ml-2 text-xs md:text-[0.9rem] font-bold ${
             item.isActive
               ? "text-darkGrayishBlue dark:text-lightGrayishBlue "
               : "dark:text-darkGrayishBlue line-through"
