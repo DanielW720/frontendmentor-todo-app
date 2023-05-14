@@ -6,6 +6,7 @@ import imageSun from "../../assets/images/icon-sun.svg";
 import imageMoon from "../../assets/images/icon-moon.svg";
 import { FilterOptions } from "./FilterOptions";
 import { TodoList, Filter, Todo } from "./types";
+import { getItems, putItem } from "./api";
 
 const defaultTodoList: TodoList = [];
 const defaultFilter: Filter = "All";
@@ -137,7 +138,28 @@ const List = ({
     <div className="relative pl-6 pr-6 bottom-52 w-full max-w-lg">
       {titleAndThemeSwitchMarkup}
 
-      <CreateItem addTodo={onSubmitNewTodoHandler} />
+      {/* <CreateItem addTodo={onSubmitNewTodoHandler} /> */}
+      <CreateItem addTodo={putItem} />
+      <button
+        onClick={async () => {
+          let response = await getItems("bob");
+          const newItems: TodoList = [];
+          try {
+            response!.forEach((doc) =>
+              newItems.push({
+                id: doc.id,
+                title: doc.data().title,
+                isActive: doc.data().isActive,
+              })
+            );
+            setItems(newItems);
+          } catch (e) {
+            console.log("messed up");
+          }
+        }}
+      >
+        Fetch Bob
+      </button>
 
       <div className="rounded-md w-full overflow-hidden shadow-3lg-light dark:shadow-3lg-dark">
         {/* // List of items */}
