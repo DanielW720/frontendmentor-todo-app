@@ -45,12 +45,12 @@ export const Item = ({
           </div>
         </button>
         <input
-          className={`w-full ml-2 text-xs md:text-[0.9rem] font-bold bg-inherit cursor-pointer outline-none ${
+          className={`w-full pr-1 ml-2 text-xs md:text-[0.9rem] font-bold bg-inherit cursor-pointer outline-none ${
             item.isActive
               ? "text-darkGrayishBlue dark:text-lightGrayishBlue "
               : "dark:text-darkGrayishBlue line-through"
           }`}
-          value={item.title}
+          value={title}
           onChange={(e) => setTitle(e.target.value)}
           onKeyDown={(e) => onKeyDownHandler(e)}
         />
