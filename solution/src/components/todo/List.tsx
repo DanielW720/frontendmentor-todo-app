@@ -6,7 +6,7 @@ import imageSun from "../../assets/images/icon-sun.svg";
 import imageMoon from "../../assets/images/icon-moon.svg";
 import { FilterOptions } from "./FilterOptions";
 import { TodoList, Filter, Todo } from "./types";
-import { getItems, putItem } from "./api";
+import { deleteItem, getItems, putItem } from "./api";
 
 const defaultTodoList: TodoList = [];
 const defaultFilter: Filter = "All";
@@ -25,7 +25,7 @@ const List = ({
   // Fetch items on first render
   useEffect(() => {
     const fetchData = async () => {
-      const items = await getItems("bob");
+      const items = await getItems();
       setItems(items);
     };
     fetchData();
@@ -84,6 +84,9 @@ const List = ({
    * @param id id of the item
    */
   const onRemoveItemHandler = (id: string): void => {
+    // Remove item in Firestore
+    deleteItem(id);
+    // Remove item locally
     const idx = findIndexOf(id);
     const newItems = [...items];
     newItems.splice(idx, 1);
@@ -147,15 +150,6 @@ const List = ({
 
       <CreateItem addTodo={onSubmitNewTodoHandler} />
 
-      <button
-        onClick={async () => {
-          const newList = await getItems("bob");
-          setItems(newList);
-        }}
-      >
-        Fetch Bob
-      </button>
-
       <div className="rounded-md w-full overflow-hidden shadow-3lg-light dark:shadow-3lg-dark">
         {/* // List of items */}
         <div className="max-h-[290px] md:max-h-[400px] overflow-y-scroll no-scrollbar">
@@ -203,38 +197,3 @@ const List = ({
 };
 
 export default List;
-
-const data = {
-  items: [
-    {
-      id: v4(),
-      title: "Complete online JavaScript course",
-      isActive: false,
-    },
-    {
-      id: v4(),
-      title: "Jog around the park 3x",
-      isActive: true,
-    },
-    {
-      id: v4(),
-      title: "10 minutes meditation",
-      isActive: true,
-    },
-    {
-      id: v4(),
-      title: "Read for 1 hour",
-      isActive: true,
-    },
-    {
-      id: v4(),
-      title: "Pick up groceries",
-      isActive: true,
-    },
-    {
-      id: v4(),
-      title: "Complete Todo App on Frontend Mentor",
-      isActive: true,
-    },
-  ],
-};

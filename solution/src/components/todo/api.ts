@@ -1,4 +1,10 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import { TodoList } from "./types";
 
@@ -18,9 +24,14 @@ export const putItem = async (title: string) => {
   }
 };
 
-export const getItems = async (user: string) => {
+/**
+ * Get items for the active user.
+ * @returns The items for the active user
+ */
+export const getItems = async () => {
   try {
-    const collectionRef = collection(db, `users/${user}/items`);
+    // Todo: Get user from auth
+    const collectionRef = collection(db, `users/${"bob"}/items`);
     const snapshot = await getDocs(collectionRef);
     const items: TodoList = [];
     snapshot.docs.forEach((doc) =>
@@ -34,5 +45,18 @@ export const getItems = async (user: string) => {
   } catch (e) {
     console.log("Error fetching items: ", e);
     return [];
+  }
+};
+
+/**
+ * Delete an item.
+ * @param id Id of the item to delete
+ */
+export const deleteItem = async (id: string) => {
+  try {
+    const docRef = doc(db, `users/${"bob"}/items/${id}`);
+    await deleteDoc(docRef);
+  } catch (e) {
+    console.log("Error deleting document: ", e);
   }
 };
