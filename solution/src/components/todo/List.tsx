@@ -24,7 +24,11 @@ const List = ({
 
   // Fetch items on first render
   useEffect(() => {
-    setItems(data.items);
+    const fetchData = async () => {
+      const items = await getItems("bob");
+      setItems(items);
+    };
+    fetchData();
   }, []);
 
   /**
@@ -57,10 +61,13 @@ const List = ({
   };
 
   /**
-   * Submit a new todo item.
+   * Submit a new todo item. Pushes new item to Firestore and updates locally.
    * @param title Title of the new todo item
    */
   const onSubmitNewTodoHandler = (title: string) => {
+    // Push to Firestore
+    putItem(title);
+    // Update locally
     const newItems = [
       {
         id: v4(),
@@ -138,24 +145,12 @@ const List = ({
     <div className="relative pl-6 pr-6 bottom-52 w-full max-w-lg">
       {titleAndThemeSwitchMarkup}
 
-      {/* <CreateItem addTodo={onSubmitNewTodoHandler} /> */}
-      <CreateItem addTodo={putItem} />
+      <CreateItem addTodo={onSubmitNewTodoHandler} />
+
       <button
         onClick={async () => {
-          let response = await getItems("bob");
-          const newItems: TodoList = [];
-          try {
-            response!.forEach((doc) =>
-              newItems.push({
-                id: doc.id,
-                title: doc.data().title,
-                isActive: doc.data().isActive,
-              })
-            );
-            setItems(newItems);
-          } catch (e) {
-            console.log("messed up");
-          }
+          const newList = await getItems("bob");
+          setItems(newList);
         }}
       >
         Fetch Bob

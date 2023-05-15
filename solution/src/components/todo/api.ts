@@ -1,7 +1,11 @@
-import { addDoc, collection, doc, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { TodoList } from "./types";
 
+/**
+ * Push a new item to the Firestore database.
+ * @param title Title of the item
+ */
 export const putItem = async (title: string) => {
   try {
     const docRef = await addDoc(collection(db, "users/bob/items"), {
@@ -16,9 +20,19 @@ export const putItem = async (title: string) => {
 
 export const getItems = async (user: string) => {
   try {
-    const querySnapshot = await getDocs(collection(db, "users/bob/items"));
-    return querySnapshot;
+    const collectionRef = collection(db, `users/${user}/items`);
+    const snapshot = await getDocs(collectionRef);
+    const items: TodoList = [];
+    snapshot.docs.forEach((doc) =>
+      items.push({
+        id: doc.id,
+        title: doc.data().title,
+        isActive: doc.data().isActive,
+      })
+    );
+    return items;
   } catch (e) {
-    console.error(e);
+    console.log("Error fetching items: ", e);
+    return [];
   }
 };
