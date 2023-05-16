@@ -1,9 +1,11 @@
 import {
+  DocumentReference,
   addDoc,
   collection,
   deleteDoc,
   doc,
   getDocs,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { TodoList } from "./types";
@@ -12,13 +14,16 @@ import { TodoList } from "./types";
  * Push a new item to the Firestore database.
  * @param title Title of the item
  */
-export const putItem = async (title: string) => {
+export const putItem = async (
+  title: string
+): Promise<DocumentReference | undefined> => {
   try {
     const docRef = await addDoc(collection(db, "users/bob/items"), {
       title: title,
       isActive: true,
     });
     console.log("Added ", docRef.path, " to Firestore");
+    return docRef;
   } catch (e) {
     console.error("Error adding document: ", e);
   }
@@ -58,5 +63,21 @@ export const deleteItem = async (id: string) => {
     await deleteDoc(docRef);
   } catch (e) {
     console.log("Error deleting document: ", e);
+  }
+};
+
+/**
+ * Update the `isActive` field of the item.
+ * @param id Id of the item to update
+ * @param newState The state that the item should have after updating it
+ */
+export const updateItemsActiveState = async (id: string, newState: boolean) => {
+  const itemRef = doc(db, `users/${"bob"}/items/${id}`);
+  try {
+    await updateDoc(itemRef, {
+      isActive: newState,
+    });
+  } catch (e) {
+    console.error("Couldn't update document: ", itemRef);
   }
 };

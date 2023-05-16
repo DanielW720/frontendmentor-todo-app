@@ -1,12 +1,11 @@
 import { CreateItem } from "./CreateItem";
 import { Item } from "./Item";
 import { useEffect, useState } from "react";
-import { v4 } from "uuid";
 import imageSun from "../../assets/images/icon-sun.svg";
 import imageMoon from "../../assets/images/icon-moon.svg";
 import { FilterOptions } from "./FilterOptions";
 import { TodoList, Filter, Todo } from "./types";
-import { deleteItem, getItems, putItem } from "./api";
+import { deleteItem, getItems, putItem, updateItemsActiveState } from "./api";
 
 const defaultTodoList: TodoList = [];
 const defaultFilter: Filter = "All";
@@ -50,33 +49,40 @@ const List = ({
   };
 
   /**
-   * Update the status of an item with given id.
+   * Update the `isActive` status of an item with given id, both in Firestore and client side.
    * @param id Id of the item
    */
   const onStatusChangeHandler = (id: string): void => {
-    const newItems = [...items];
     const idx = findIndexOf(id);
+    // Update item in Firestore
+    updateItemsActiveState(id, !items[idx].isActive);
+    // Update item locally
+    const newItems = [...items];
     newItems[idx] = { ...newItems[idx], isActive: !items[idx].isActive };
     setItems(newItems);
   };
 
   /**
-   * Submit a new todo item. Pushes new item to Firestore and updates locally.
+   * Submit a new todo item. Pushes new item to Firestore and client side.
    * @param title Title of the new todo item
    */
-  const onSubmitNewTodoHandler = (title: string) => {
+  const onSubmitNewTodoHandler = async (title: string) => {
     // Push to Firestore
-    putItem(title);
-    // Update locally
-    const newItems = [
-      {
-        id: v4(),
-        title: title,
-        isActive: true,
-      },
-      ...items,
-    ];
-    setItems(newItems);
+    const docRef = await putItem(title);
+    // Update locally unless push failed
+    if (docRef != undefined) {
+      const newItems = [
+        {
+          id: docRef.id,
+          title: title,
+          isActive: true,
+        },
+        ...items,
+      ];
+      setItems(newItems);
+    } else {
+      alert("Couldn't add document! Did you loose your internet connection?");
+    }
   };
 
   /**
