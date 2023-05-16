@@ -115,10 +115,14 @@ const List = ({
   };
 
   /**
-   * Delete completed items.
+   * Delete completed items, in Firestore and on client.
    */
   const deleteCompletedItems = () => {
-    const newList = items.filter((item) => item.isActive);
+    // const newList = items.filter((item) => item.isActive);
+    const newList: TodoList = [];
+    items.forEach((item) =>
+      item.isActive ? newList.push(item) : deleteItem(item.id)
+    );
     setItems(newList);
   };
 

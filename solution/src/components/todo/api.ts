@@ -30,7 +30,7 @@ export const putItem = async (
 };
 
 /**
- * Get items for the active user.
+ * Fetch all items for the active user from Firestore.
  * @returns The items for the active user
  */
 export const getItems = async () => {
@@ -54,7 +54,7 @@ export const getItems = async () => {
 };
 
 /**
- * Delete an item.
+ * Delete an item in Firestore.
  * @param id Id of the item to delete
  */
 export const deleteItem = async (id: string) => {
@@ -67,7 +67,7 @@ export const deleteItem = async (id: string) => {
 };
 
 /**
- * Update the `isActive` field of the item.
+ * Update the `isActive` field of the item in Firestore.
  * @param id Id of the item to update
  * @param newState The state that the item should have after updating it
  */
