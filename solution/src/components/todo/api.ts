@@ -81,3 +81,19 @@ export const updateItemsActiveState = async (id: string, newState: boolean) => {
     console.error("Couldn't update document: ", itemRef);
   }
 };
+
+/**
+ * Update the `title` field of the item in Firestore.
+ * @param id Id of the item to update
+ * @param title The state that the item should have after updating it
+ */
+export const updateItemsTitle = async (id: string, title: string) => {
+  const itemRef = doc(db, `users/${"bob"}/items/${id}`);
+  try {
+    await updateDoc(itemRef, {
+      title: title,
+    });
+  } catch (e) {
+    console.error("Couldn't update document: ", itemRef);
+  }
+};

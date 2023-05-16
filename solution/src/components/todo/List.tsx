@@ -5,7 +5,13 @@ import imageSun from "../../assets/images/icon-sun.svg";
 import imageMoon from "../../assets/images/icon-moon.svg";
 import { FilterOptions } from "./FilterOptions";
 import { TodoList, Filter, Todo } from "./types";
-import { deleteItem, getItems, putItem, updateItemsActiveState } from "./api";
+import {
+  deleteItem,
+  getItems,
+  putItem,
+  updateItemsActiveState,
+  updateItemsTitle,
+} from "./api";
 
 const defaultTodoList: TodoList = [];
 const defaultFilter: Filter = "All";
@@ -56,7 +62,7 @@ const List = ({
     const idx = findIndexOf(id);
     // Update item in Firestore
     updateItemsActiveState(id, !items[idx].isActive);
-    // Update item locally
+    // Update item on client
     const newItems = [...items];
     newItems[idx] = { ...newItems[idx], isActive: !items[idx].isActive };
     setItems(newItems);
@@ -69,7 +75,7 @@ const List = ({
   const onSubmitNewTodoHandler = async (title: string) => {
     // Push to Firestore
     const docRef = await putItem(title);
-    // Update locally unless push failed
+    // Update on client, unless push failed
     if (docRef != undefined) {
       const newItems = [
         {
@@ -86,13 +92,13 @@ const List = ({
   };
 
   /**
-   * Remove item from item list.
+   * Remove item from item list, in Firestore and on client.
    * @param id id of the item
    */
   const onRemoveItemHandler = (id: string): void => {
     // Remove item in Firestore
     deleteItem(id);
-    // Remove item locally
+    // Remove item on client
     const idx = findIndexOf(id);
     const newItems = [...items];
     newItems.splice(idx, 1);
@@ -118,10 +124,27 @@ const List = ({
    * Delete completed items, in Firestore and on client.
    */
   const deleteCompletedItems = () => {
-    // const newList = items.filter((item) => item.isActive);
     const newList: TodoList = [];
     items.forEach((item) =>
       item.isActive ? newList.push(item) : deleteItem(item.id)
+    );
+    setItems(newList);
+  };
+
+  /**
+   * Update an items title, both in Firestore and on client side.
+   * @param id Id of the item to update
+   * @param title The new title
+   */
+  const onUpdateItemTitleHandler = (id: string, title: string) => {
+    // Update title in Firestore
+    updateItemsTitle(id, title);
+    // Update title on client
+    const item = items.find((item) => item.id === id) as Todo;
+    item.title = title;
+    // Replace the item in the list
+    const newList = items.map(
+      (obj) => items.find((o) => o.id === obj.id) || obj
     );
     setItems(newList);
   };
@@ -143,17 +166,6 @@ const List = ({
     </div>
   );
 
-  const onUpdateItemHandler = (id: string, title: string) => {
-    const item = items.find((item) => item.id === id) as Todo;
-    item.title = title;
-    // Replace the item in the list
-    const newList = items.map(
-      (obj) => items.find((o) => o.id === obj.id) || obj
-    );
-    // Update the items with the new list
-    setItems(newList);
-  };
-
   return (
     <div className="relative pl-6 pr-6 bottom-52 w-full max-w-lg">
       {titleAndThemeSwitchMarkup}
@@ -170,7 +182,7 @@ const List = ({
                 item={item}
                 onStatusChangeHandler={onStatusChangeHandler}
                 onRemoveItemHandler={onRemoveItemHandler}
-                onUpdateItemHandler={onUpdateItemHandler}
+                onUpdateItemTitleHandler={onUpdateItemTitleHandler}
               />
             );
           })}

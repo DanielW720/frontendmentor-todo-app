@@ -6,12 +6,12 @@ export const Item = ({
   item,
   onStatusChangeHandler,
   onRemoveItemHandler,
-  onUpdateItemHandler,
+  onUpdateItemTitleHandler,
 }: {
   item: { id: string; title: string; isActive: boolean };
   onStatusChangeHandler: (id: string) => void;
   onRemoveItemHandler: (id: string) => void;
-  onUpdateItemHandler: (id: string, title: string) => void;
+  onUpdateItemTitleHandler: (id: string, title: string) => void;
 }) => {
   const [title, setTitle] = useState(item.title);
 
@@ -20,7 +20,7 @@ export const Item = ({
       // Time to update title
       e.preventDefault();
       (e.target as HTMLInputElement).blur();
-      onUpdateItemHandler(item.id, title);
+      onUpdateItemTitleHandler(item.id, title);
     }
   };
 
