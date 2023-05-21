@@ -14,6 +14,8 @@ export default {
       boxShadow: {
         "3lg-dark": "0 50px 70px 10px #101018",
         "3lg-light": "0 50px 70px 10px #e6e7ec",
+        "sm-symmetric": "0 0 4px  white",
+        blur: "0 0 20px 5px #561d8e",
       },
       colors: {
         // Primary

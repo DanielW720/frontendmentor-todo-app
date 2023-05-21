@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import List from "./components/todo/List";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { SignedOut } from "./components/SignedOut/SignedOut";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -27,9 +28,7 @@ function App() {
           {isSignedIn ? (
             <List updateTheme={updateTheme} isDarkTheme={theme === "dark"} />
           ) : (
-            <div>
-              <p>Not signed in!</p>
-            </div>
+            <SignedOut />
           )}
         </main>
       </div>

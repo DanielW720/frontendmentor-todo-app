@@ -167,7 +167,7 @@ const List = ({
   );
 
   return (
-    <div className="relative pl-6 pr-6 bottom-52 w-full max-w-lg">
+    <div className="relative pl-6 pr-6 bottom-44 w-full max-w-lg">
       {titleAndThemeSwitchMarkup}
 
       <CreateItem addTodo={onSubmitNewTodoHandler} />
