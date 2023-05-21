@@ -1,20 +1,36 @@
 import { Header } from "./components/header/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import List from "./components/todo/List";
+import { auth } from "./firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
   const [theme, setTheme] = useState("dark");
+  const [isSignedIn, setIsSignedIn] = useState(auth.currentUser != null);
 
   const updateTheme = () => {
     setTheme((prevState) => (prevState === "dark" ? "" : "dark"));
   };
 
+  useEffect(() => {
+    // Observer on the auth object
+    onAuthStateChanged(auth, (user) => {
+      setIsSignedIn(user != null);
+    });
+  }, []);
+
   return (
     <div className={`${theme} max-h-screen overflow-hidden`}>
       <div className="min-h-screen min-w-[275px] bg-white dark:bg-veryDarkBlue text-lightGrayishBlue">
-        <Header isDarkTheme={theme === "dark"} />
+        <Header isDarkTheme={theme === "dark"} isSignedIn={isSignedIn} />
         <main className="flex justify-center">
-          <List updateTheme={updateTheme} isDarkTheme={theme === "dark"} />
+          {isSignedIn ? (
+            <List updateTheme={updateTheme} isDarkTheme={theme === "dark"} />
+          ) : (
+            <div>
+              <p>Not signed in!</p>
+            </div>
+          )}
         </main>
       </div>
     </div>

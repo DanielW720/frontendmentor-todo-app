@@ -5,8 +5,8 @@
 - [x] CRUD Firestore API calls
 - [x] User authentication
 - [ ] Email/password authentication
-- [ ] User-data
-- [ ] Firestore security rules
+- [x] Modify Firestore CRUD methods to use current user
+- [x] Firestore security rules
 - [ ] Hosting: dev/test and production environments
 
 ## UI
@@ -21,4 +21,4 @@
 
 ## Thoughts
 
-- Refactor; Firestore supports writing documents with custom classes. Hence, the app could be more OOP by having `TodoList` be a class, which contains several `Todo` objects. Currently, TodoList and Todo are both typescript types.
+- Refactor; Firestore supports writing documents with custom classes. Hence, the app could be more object oriented by having `TodoList` be a class, which contains several `Todo` objects. Currently, TodoList and Todo are both typescript types.

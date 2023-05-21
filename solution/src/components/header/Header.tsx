@@ -4,23 +4,14 @@ import imageBgDesktopLight from "../../assets/images/bg-desktop-light.jpg";
 import imageBgDesktopDark from "../../assets/images/bg-desktop-dark.jpg";
 import googleLogo from "../../assets/images/google-logo.svg";
 import { auth, signInUser, signOutUser } from "../../firebase";
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
 
-export const Header = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
-  const [isSignedIn, setIsSignedIn] = useState(auth.currentUser != null);
-
-  useEffect(() => {
-    // Observer on the auth object
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsSignedIn(true);
-      } else {
-        setIsSignedIn(false);
-      }
-    });
-  }, []);
-
+export const Header = ({
+  isDarkTheme,
+  isSignedIn,
+}: {
+  isDarkTheme: boolean;
+  isSignedIn: boolean;
+}) => {
   const cardStyle =
     "ml-2 relative z-50 top-1 border-[1px] text-sm h-fit p-1  \
     rounded-md backdrop-blur-md backdrop-brightness-75 shadow-sm shadow-white";
