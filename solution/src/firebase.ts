@@ -37,17 +37,13 @@ export async function signInUser(method: string) {
       const googleProvider = new GoogleAuthProvider();
       try {
         await signInWithPopup(auth, googleProvider);
-        console.log("User has been signed in");
-        return true;
-      } catch (e) {
-        console.error("Error during GitHub login: ", e);
-        return false;
-      }
+      } catch (e) {}
+      break;
     case "email-password":
       // todo
-      return false;
+      break;
     default:
-      return false;
+      break;
   }
 }
 
@@ -57,6 +53,4 @@ export async function signInUser(method: string) {
  */
 export async function signOutUser() {
   await signOut(auth);
-  console.log("User has been signed out");
-  return true;
 }

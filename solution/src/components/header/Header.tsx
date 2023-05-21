@@ -4,10 +4,22 @@ import imageBgDesktopLight from "../../assets/images/bg-desktop-light.jpg";
 import imageBgDesktopDark from "../../assets/images/bg-desktop-dark.jpg";
 import googleLogo from "../../assets/images/google-logo.svg";
 import { auth, signInUser, signOutUser } from "../../firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 
 export const Header = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
   const [isSignedIn, setIsSignedIn] = useState(auth.currentUser != null);
+
+  useEffect(() => {
+    // Observer on the auth object
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsSignedIn(true);
+      } else {
+        setIsSignedIn(false);
+      }
+    });
+  }, []);
 
   const cardStyle =
     "ml-2 relative z-50 top-1 border-[1px] text-sm h-fit p-1  \
@@ -39,9 +51,8 @@ export const Header = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
           </div>
           <button
             className={cardStyle}
-            onClick={async () => {
-              const hasSignedOut = await signOutUser();
-              if (hasSignedOut) setIsSignedIn(false);
+            onClick={() => {
+              signOutUser();
             }}
           >
             Sign out
@@ -52,9 +63,8 @@ export const Header = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
           <img src={googleLogo} alt="Google logo" width="20px" />
           <button
             className="ml-2"
-            onClick={async () => {
-              const successfulSignIn = await signInUser("google");
-              if (successfulSignIn) setIsSignedIn(true);
+            onClick={() => {
+              signInUser("google");
             }}
           >
             Sign in with Google
