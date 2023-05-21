@@ -27,6 +27,16 @@ export const Header = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
       />
       {isSignedIn ? (
         <div className="flex justify-between">
+          {" "}
+          <div className={`${cardStyle} flex`}>
+            <p className="mr-2">Welcome, {auth.currentUser!.displayName}!</p>
+            <img
+              src={auth.currentUser!.photoURL || undefined}
+              alt="User profile"
+              width="20px"
+              className="rounded-full"
+            />
+          </div>
           <button
             className={cardStyle}
             onClick={async () => {
@@ -36,11 +46,10 @@ export const Header = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
           >
             Sign out
           </button>
-          <p className={cardStyle}>Welcome, {auth.currentUser!.displayName}</p>
         </div>
       ) : (
-        <div className={`${cardStyle} flex`}>
-          <img src={googleLogo} alt="Google logo" width="18px" />
+        <div className={`${cardStyle} flex items-center`}>
+          <img src={googleLogo} alt="Google logo" width="20px" />
           <button
             className="ml-2"
             onClick={async () => {
