@@ -31,12 +31,14 @@ export const Header = ({
         <div className="flex justify-between">
           <div className={`${cardStyle} flex`}>
             <p className="mr-2">Welcome, {auth.currentUser!.displayName}!</p>
-            <img
-              src={auth.currentUser!.photoURL || undefined}
-              alt="User profile"
-              width="20px"
-              className="rounded-full"
-            />
+            {auth.currentUser?.photoURL != undefined && (
+              <img
+                src={auth.currentUser.photoURL || undefined}
+                alt="User profile"
+                width="20px"
+                className="rounded-full"
+              />
+            )}
           </div>
           <button
             className={cardStyle}

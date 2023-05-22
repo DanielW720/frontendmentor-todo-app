@@ -36,6 +36,9 @@ export default {
         darkGrayishBlue: "hsl(234, 11%, 52%)",
         veryDarkGrayishBlueDarkTheme: "hsl(237, 14%, 26%)",
         veryDarkGrayishBlue: "hsl(233, 14%, 35%)",
+        // Form colors
+        formLeft: "rgb(87, 220, 255, 0.6)",
+        formRight: "rgb(191, 90, 244, 0.6)",
       },
     },
     fontFamily: {
