@@ -16,7 +16,7 @@ export const Header = ({
     rounded-md backdrop-blur-md backdrop-brightness-75 shadow-sm-symmetric";
 
   return (
-    <div className="h-52 relative flex justify-center">
+    <header className="h-52 relative flex justify-center">
       <img
         src={isDarkTheme ? imageBgMobileDark : imageBgMobileLight}
         alt="Header background"
@@ -27,7 +27,7 @@ export const Header = ({
         alt="Header background"
         className="absolute w-full left-0 top-0 h-full z-0 hidden md:block"
       />
-      {isSignedIn && (
+      {isSignedIn ? (
         <div className="flex justify-between">
           <div className={`${cardStyle} flex`}>
             <p className="mr-2">Welcome, {auth.currentUser!.displayName}!</p>
@@ -42,14 +42,18 @@ export const Header = ({
           </div>
           <button
             className={cardStyle}
-            onClick={() => {
-              signOutUser();
+            onClick={async () => {
+              await signOutUser();
             }}
           >
             Sign out
           </button>
         </div>
+      ) : (
+        <h1 className="absolute top-12 text-3xl font-bold tracking-[0.5rem] text-white">
+          TODO
+        </h1>
       )}
-    </div>
+    </header>
   );
 };
