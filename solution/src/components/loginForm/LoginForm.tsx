@@ -74,7 +74,7 @@ export default function LoginForm({ loginForm }: { loginForm: boolean }) {
         <input
           type="submit"
           value={loginForm ? "Login" : "Register"}
-          className="text-white"
+          className="text-white cursor-pointer w-fit self-center"
         />
       </form>
     </div>
