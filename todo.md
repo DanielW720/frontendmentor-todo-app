@@ -7,6 +7,7 @@
 - [x] Email/password authentication
 - [x] Modify Firestore CRUD methods to use current user
 - [x] Firestore security rules
+- [ ] Fix capital letters in first name and last name upon registration with email (cloud functions?)
 - [ ] Auth state persistence
 - [ ] Email link authentication
 - [ ] [Differentiating email/password from email link](https://firebase.google.com/docs/auth/web/email-link-auth?hl=en&authuser=0)
@@ -16,6 +17,8 @@
 ## UI
 
 - [x] Loginform/Registerform
+- [ ] Form input text color
+- [ ] Loading screen when refreshing
 - [ ] Firebase-error modal (couldn't create/login user)
 - [ ] Default sorting of items ([localStorage](https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/)?)
 - [ ] Drag n' drop items

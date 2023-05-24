@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LoginForm from "../loginForm/LoginForm";
+import LoginForm from "../loginRegisterForm/LoginRegisterForm";
 import googleLogo from "../../assets/images/google-logo.svg";
 import { signInUser } from "../../firebase";
 

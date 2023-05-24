@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { signInUser } from "../../firebase";
+import { createEmailPasswordUser, signInUser } from "../../firebase";
 
 type Inputs = {
   mail: string;
@@ -8,7 +8,11 @@ type Inputs = {
   lastName: string;
 };
 
-export default function LoginForm({ loginForm }: { loginForm: boolean }) {
+export default function LoginRegisterForm({
+  loginForm,
+}: {
+  loginForm: boolean;
+}) {
   const {
     register,
     handleSubmit,
@@ -16,7 +20,15 @@ export default function LoginForm({ loginForm }: { loginForm: boolean }) {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      await signInUser("emailpassword", data.mail, data.password);
+      if (loginForm) {
+        await signInUser("emailpassword", data.mail, data.password);
+      } else {
+        await createEmailPasswordUser(
+          data.mail,
+          data.password,
+          `${data.firstName} ${data.lastName}`
+        );
+      }
     } catch {
       console.log("Could not sign in email-password user");
     }
