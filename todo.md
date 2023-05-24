@@ -5,20 +5,20 @@
 - [x] CRUD Firestore API calls
 - [x] User authentication
 - [x] Email/password authentication
-- [ ] Email link authentication
-- [ ] [Differentiating email/password from email link](https://firebase.google.com/docs/auth/web/email-link-auth?hl=en&authuser=0)
 - [x] Modify Firestore CRUD methods to use current user
 - [x] Firestore security rules
-- [ ] Hosting: dev/test and production environments
-- [ ] Unregister
 - [ ] Auth state persistence
+- [ ] Email link authentication
+- [ ] [Differentiating email/password from email link](https://firebase.google.com/docs/auth/web/email-link-auth?hl=en&authuser=0)
+- [ ] Unregister
+- [ ] Hosting: dev/test and production environments
 
 ## UI
 
-- [ ] Drag n' drop items
-- [ ] Default sorting of items ([localStorage](https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/)?)
-- [ ] Login-form
+- [x] Loginform/Registerform
 - [ ] Firebase-error modal (couldn't create/login user)
+- [ ] Default sorting of items ([localStorage](https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/)?)
+- [ ] Drag n' drop items
 
 ## Else
 

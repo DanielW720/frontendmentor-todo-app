@@ -3,13 +3,17 @@ import imageBgMobileDark from "../../assets/images/bg-mobile-dark.jpg";
 import imageBgDesktopLight from "../../assets/images/bg-desktop-light.jpg";
 import imageBgDesktopDark from "../../assets/images/bg-desktop-dark.jpg";
 import { auth, signOutUser } from "../../firebase";
+import imageSun from "../../assets/images/icon-sun.svg";
+import imageMoon from "../../assets/images/icon-moon.svg";
 
 export const Header = ({
   isDarkTheme,
   isSignedIn,
+  updateTheme,
 }: {
   isDarkTheme: boolean;
   isSignedIn: boolean;
+  updateTheme: any;
 }) => {
   const cardStyle =
     "ml-2 relative z-50 top-5 border-[1px] text-sm h-fit p-1  \
@@ -50,9 +54,20 @@ export const Header = ({
           </button>
         </div>
       ) : (
-        <h1 className="absolute top-12 text-3xl font-bold tracking-[0.5rem] text-white">
-          TODO
-        </h1>
+        <div className="relative bottom-8 flex flex-col justify-center items-center">
+          <h1 className="text-3xl font-bold tracking-[0.5rem] text-white mb-2">
+            TODO
+          </h1>
+          <button onClick={updateTheme}>
+            {
+              <img
+                src={isDarkTheme ? imageSun : imageMoon}
+                alt="Sun icon"
+                width="90%"
+              />
+            }
+          </button>
+        </div>
       )}
     </header>
   );

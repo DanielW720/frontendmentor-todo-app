@@ -74,7 +74,7 @@ export default function LoginForm({ loginForm }: { loginForm: boolean }) {
         <input
           type="submit"
           value={loginForm ? "Login" : "Register"}
-          className="text-white cursor-pointer w-fit self-center"
+          className={`dark:text-white text-veryDarkDesaturatedBlue font-bold cursor-pointer w-fit self-center my-3 p-1 rounded-md border-[1px] dark:border-white border-veryDarkDesaturatedBlue transition-all duration-500`}
         />
       </form>
     </div>

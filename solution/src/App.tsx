@@ -23,7 +23,11 @@ function App() {
   return (
     <div className={`${theme} max-h-screen overflow-hidden`}>
       <div className="min-h-screen min-w-[275px] bg-white dark:bg-veryDarkBlue text-lightGrayishBlue">
-        <Header isDarkTheme={theme === "dark"} isSignedIn={isSignedIn} />
+        <Header
+          isDarkTheme={theme === "dark"}
+          isSignedIn={isSignedIn}
+          updateTheme={updateTheme}
+        />
         <main className="flex justify-center">
           {isSignedIn ? (
             <List updateTheme={updateTheme} isDarkTheme={theme === "dark"} />
