@@ -18,8 +18,9 @@
 
 - [x] Loginform/Registerform
 - [ ] Form input text color
-- [ ] Loading screen when refreshing
+- [ ] User display name not showing when creating user and signing in for the first time
 - [ ] Firebase-error modal (couldn't create/login user)
+- [ ] Loading screen when refreshing
 - [ ] Default sorting of items ([localStorage](https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/)?)
 - [ ] Drag n' drop items
 

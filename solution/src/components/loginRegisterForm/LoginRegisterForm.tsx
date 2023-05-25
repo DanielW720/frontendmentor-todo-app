@@ -45,15 +45,16 @@ export default function LoginRegisterForm({
       >
         {/* register your input into the hook by invoking the "register" function */}
         <input
-          className="rounded-md m-1 px-2 py-1"
+          className="rounded-md m-1 px-2 py-1 text-brightBlue"
           placeholder="Email"
           type="email"
           required={true}
+          pattern="[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]+"
           {...register("mail")}
         />
         {/* include validation with required or other standard HTML validation rules */}
         <input
-          className="rounded-md m-1 px-2 py-1"
+          className="rounded-md m-1 px-2 py-1 text-brightBlue"
           placeholder="Password"
           type="password"
           pattern="[0-9a-zA-Z]{8,20}"
@@ -63,7 +64,7 @@ export default function LoginRegisterForm({
         {/* When registring a new user, also request first and last name */}
         {!loginForm && (
           <input
-            className="rounded-md m-1 px-2 py-1"
+            className="rounded-md m-1 px-2 py-1 text-brightBlue"
             placeholder="First name"
             type="text"
             pattern="[0-9a-zA-Z]{2,20}"
@@ -73,7 +74,7 @@ export default function LoginRegisterForm({
         )}
         {!loginForm && (
           <input
-            className="rounded-md m-1 px-2 py-1"
+            className="rounded-md m-1 px-2 py-1 text-brightBlue"
             placeholder="Last name"
             type="text"
             pattern="[0-9a-zA-Z]{2,20}"

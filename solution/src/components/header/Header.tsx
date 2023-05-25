@@ -8,11 +8,9 @@ import imageMoon from "../../assets/images/icon-moon.svg";
 
 export const Header = ({
   isDarkTheme,
-  isSignedIn,
   updateTheme,
 }: {
   isDarkTheme: boolean;
-  isSignedIn: boolean;
   updateTheme: any;
 }) => {
   const cardStyle =
@@ -31,10 +29,10 @@ export const Header = ({
         alt="Header background"
         className="absolute w-full left-0 top-0 h-full z-0 hidden md:block"
       />
-      {isSignedIn ? (
+      {auth.currentUser != null ? (
         <div className="flex justify-between">
           <div className={`${cardStyle} flex`}>
-            <p className="mr-2">Welcome, {auth.currentUser!.displayName}!</p>
+            <p className="mr-2">Welcome, {auth.currentUser.displayName}!</p>
             {auth.currentUser?.photoURL != undefined && (
               <img
                 src={auth.currentUser.photoURL || undefined}
