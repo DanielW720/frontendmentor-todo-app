@@ -1,5 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { createEmailPasswordUser, signInUser } from "../../firebase";
+import { useDisplayNameDispatch } from "../../contexts/userDisplayName/userDisplayNameContext";
 
 type Inputs = {
   mail: string;
@@ -18,16 +19,24 @@ export default function LoginRegisterForm({
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
+  const userDisplayNameDispatch = useDisplayNameDispatch();
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       if (loginForm) {
+        // Login existing user
         await signInUser("emailpassword", data.mail, data.password);
       } else {
-        await createEmailPasswordUser(
-          data.mail,
-          data.password,
-          `${data.firstName} ${data.lastName}`
-        );
+        // Create new user and update the display name locally (client side)
+        const fullName = `${data.firstName} ${data.lastName}`;
+        await createEmailPasswordUser(data.mail, data.password, fullName);
+        // Todo: Default of the dispatch is null which might be unnecessary
+        if (userDisplayNameDispatch) {
+          userDisplayNameDispatch({
+            type: "set-name",
+            userDisplayName: fullName,
+          });
+        }
       }
     } catch {
       console.log("Could not sign in email-password user");

@@ -4,6 +4,7 @@ import List from "./components/todo/List";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { SignedOut } from "./components/signedOut/SignedOut";
+import { UserDisplayNameProvider } from "./contexts/userDisplayName/userDisplayNameContext";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -23,14 +24,16 @@ function App() {
   return (
     <div className={`${theme} max-h-screen overflow-hidden`}>
       <div className="min-h-screen min-w-[275px] bg-white dark:bg-veryDarkBlue text-lightGrayishBlue">
-        <Header isDarkTheme={theme === "dark"} updateTheme={updateTheme} />
-        <main className="flex justify-center">
-          {isSignedIn ? (
-            <List updateTheme={updateTheme} isDarkTheme={theme === "dark"} />
-          ) : (
-            <SignedOut />
-          )}
-        </main>
+        <UserDisplayNameProvider>
+          <Header isDarkTheme={theme === "dark"} updateTheme={updateTheme} />
+          <main className="flex justify-center">
+            {isSignedIn ? (
+              <List updateTheme={updateTheme} isDarkTheme={theme === "dark"} />
+            ) : (
+              <SignedOut />
+            )}
+          </main>
+        </UserDisplayNameProvider>
       </div>
     </div>
   );

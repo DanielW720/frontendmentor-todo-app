@@ -5,6 +5,7 @@ import imageBgDesktopDark from "../../assets/images/bg-desktop-dark.jpg";
 import { auth, signOutUser } from "../../firebase";
 import imageSun from "../../assets/images/icon-sun.svg";
 import imageMoon from "../../assets/images/icon-moon.svg";
+import { useDisplayName } from "../../contexts/userDisplayName/userDisplayNameContext";
 
 export const Header = ({
   isDarkTheme,
@@ -16,6 +17,7 @@ export const Header = ({
   const cardStyle =
     "ml-2 relative z-50 top-5 border-[1px] text-sm h-fit p-1  \
     rounded-md backdrop-blur-md backdrop-brightness-75 shadow-sm-symmetric";
+  const userDisplayName = useDisplayName();
 
   return (
     <header className="h-52 relative flex justify-center">
@@ -32,7 +34,7 @@ export const Header = ({
       {auth.currentUser != null ? (
         <div className="flex justify-between">
           <div className={`${cardStyle} flex`}>
-            <p className="mr-2">Welcome, {auth.currentUser.displayName}!</p>
+            <p className="mr-2">Welcome, {userDisplayName}!</p>
             {auth.currentUser?.photoURL != undefined && (
               <img
                 src={auth.currentUser.photoURL || undefined}
