@@ -47,6 +47,7 @@ export async function signInUser(
         await signInWithPopup(auth, googleProvider);
       } catch (e) {
         console.error("Could not sign in Google user: ", e);
+        throw "SignInGoogleUserError";
       }
       break;
     case "emailpassword":
@@ -55,6 +56,7 @@ export async function signInUser(
           await signInWithEmailAndPassword(auth, email, password);
         } catch (e) {
           console.error("Could not sign in email user: ", e);
+          throw "SignInEmailPasswordUserError";
         }
       }
       break;
@@ -90,5 +92,6 @@ export async function createEmailPasswordUser(
     console.log("Created a new user and set the users display name");
   } catch (e) {
     console.error("Could not create email-password user: ", e);
+    throw "CreateEmailPasswordUserError";
   }
 }

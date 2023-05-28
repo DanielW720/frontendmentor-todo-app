@@ -18,7 +18,7 @@ export function UserDisplayNameProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [userDisplayName, dispatch] = useReducer(userDisplayNameReducer, "DW");
+  const [userDisplayName, dispatch] = useReducer(userDisplayNameReducer, "");
 
   return (
     <UserDisplayNameContext.Provider value={userDisplayName}>

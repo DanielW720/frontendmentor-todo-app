@@ -34,7 +34,7 @@ export const Item = ({
                 item.isActive
                   ? "bg-veryLightGray dark:bg-veryDarkDesaturatedBlue"
                   : "bg-gradient-to-br from-headerLeft to-headerRight"
-              }`}
+              } transition-all duration-500`}
             >
               <img
                 src={iconCheck}
