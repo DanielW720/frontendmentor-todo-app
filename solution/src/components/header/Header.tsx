@@ -14,9 +14,6 @@ export const Header = ({
   isDarkTheme: boolean;
   updateTheme: any;
 }) => {
-  const cardStyle =
-    "ml-2 relative z-50 top-5 border-[1px] text-sm h-fit p-1  \
-    rounded-md backdrop-blur-md backdrop-brightness-75 shadow-sm-symmetric";
   const userDisplayName = useDisplayName();
 
   return (
@@ -32,8 +29,8 @@ export const Header = ({
         className="absolute w-full left-0 top-0 h-full z-0 hidden md:block"
       />
       {auth.currentUser != null ? (
-        <div className="flex justify-between">
-          <div className={`${cardStyle} flex`}>
+        <div className="flex flex-row items-start justify-center w-full max-w-lg px-6 relative">
+          <div className="flex mt-5 border-[1px] text-sm h-fit p-1 rounded-md backdrop-blur-md backdrop-brightness-75 shadow-sm-symmetric">
             <p className="mr-2">Welcome, {userDisplayName}!</p>
             {auth.currentUser?.photoURL != undefined && (
               <img
@@ -45,7 +42,15 @@ export const Header = ({
             )}
           </div>
           <button
-            className={cardStyle}
+            className="absolute left-6 mt-5 border-[1px] text-sm h-fit p-1 rounded-md backdrop-blur-md backdrop-brightness-75 shadow-sm-symmetric"
+            onClick={async () => {
+              // Unregister
+            }}
+          >
+            Unregister
+          </button>
+          <button
+            className="absolute right-6 mt-5 border-[1px] text-sm h-fit p-1 rounded-md backdrop-blur-md backdrop-brightness-75 shadow-sm-symmetric"
             onClick={async () => {
               await signOutUser();
             }}
