@@ -20,6 +20,7 @@
 - [x] Form input text color
 - [x] User display name not showing when creating user and signing in for the first time
 - [x] Firebase-error modal (couldn't create/login user)
+- [x] Dropdown/Side-menu for signing out or unregistering
 - [ ] Loading screen when refreshing
 - [ ] React Context: Persist user display name on page reload
 - [ ] Todo-list height animation

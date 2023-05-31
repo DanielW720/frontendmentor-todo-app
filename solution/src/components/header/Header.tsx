@@ -2,7 +2,7 @@ import imageBgMobileLight from "../../assets/images/bg-mobile-light.jpg";
 import imageBgMobileDark from "../../assets/images/bg-mobile-dark.jpg";
 import imageBgDesktopLight from "../../assets/images/bg-desktop-light.jpg";
 import imageBgDesktopDark from "../../assets/images/bg-desktop-dark.jpg";
-import { auth, signOutUser } from "../../firebase";
+import { auth } from "../../firebase";
 import imageSun from "../../assets/images/icon-sun.svg";
 import imageMoon from "../../assets/images/icon-moon.svg";
 import { useDisplayName } from "../../contexts/userDisplayName/userDisplayNameContext";
@@ -17,20 +17,20 @@ export const Header = ({
   const userDisplayName = useDisplayName();
 
   return (
-    <header className="h-52 relative flex justify-center">
+    <header className="relative flex h-52 justify-center">
       <img
         src={isDarkTheme ? imageBgMobileDark : imageBgMobileLight}
         alt="Header background"
-        className="absolute w-full left-0 top-0 h-full z-0 md:hidden"
+        className="absolute left-0 top-0 z-0 h-full w-full md:hidden"
       />
       <img
         src={isDarkTheme ? imageBgDesktopDark : imageBgDesktopLight}
         alt="Header background"
-        className="absolute w-full left-0 top-0 h-full z-0 hidden md:block"
+        className="absolute left-0 top-0 z-0 hidden h-full w-full md:block"
       />
       {auth.currentUser != null ? (
-        <div className="flex flex-row items-start justify-center w-full max-w-lg px-6 relative">
-          <div className="flex mt-5 border-[1px] text-sm h-fit p-1 rounded-md backdrop-blur-md backdrop-brightness-75 shadow-sm-symmetric">
+        <div className="relative flex w-full max-w-lg flex-row items-start justify-center px-6">
+          <div className="mt-5 flex h-fit rounded-md border-[1px] p-1 text-sm shadow-sm-symmetric backdrop-blur-md backdrop-brightness-75">
             <p className="mr-2">Welcome, {userDisplayName}!</p>
             {auth.currentUser?.photoURL != undefined && (
               <img
@@ -41,26 +41,10 @@ export const Header = ({
               />
             )}
           </div>
-          <button
-            className="absolute left-6 mt-5 border-[1px] text-sm h-fit p-1 rounded-md backdrop-blur-md backdrop-brightness-75 shadow-sm-symmetric"
-            onClick={async () => {
-              // Unregister
-            }}
-          >
-            Unregister
-          </button>
-          <button
-            className="absolute right-6 mt-5 border-[1px] text-sm h-fit p-1 rounded-md backdrop-blur-md backdrop-brightness-75 shadow-sm-symmetric"
-            onClick={async () => {
-              await signOutUser();
-            }}
-          >
-            Sign out
-          </button>
         </div>
       ) : (
-        <div className="relative bottom-8 flex flex-col justify-center items-center">
-          <h1 className="text-3xl font-bold tracking-[0.5rem] text-white mb-2">
+        <div className="relative bottom-8 flex flex-col items-center justify-center">
+          <h1 className="mb-2 text-3xl font-bold tracking-[0.5rem] text-white">
             TODO
           </h1>
           <button onClick={updateTheme}>
