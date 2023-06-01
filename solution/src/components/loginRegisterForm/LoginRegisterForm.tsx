@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { auth, createEmailPasswordUser, signInUser } from "../../firebase";
 import { useDisplayNameDispatch } from "../../contexts/userDisplayName/userDisplayNameContext";
 import { useState } from "react";
-import { ErrorModal } from "./ErrorModal";
+import { Modal } from "../modal/Modal";
 
 type Inputs = {
   mail: string;
@@ -56,7 +56,7 @@ export default function LoginRegisterForm({
           show: true,
           errorMessageMarkup: (
             <div>
-              <p className="font-bold text-xl text-headerRight">
+              <p className="text-xl font-bold text-brightBlue">
                 Register failure
               </p>
               <p>Did you already create an account?</p>
@@ -68,9 +68,7 @@ export default function LoginRegisterForm({
           show: true,
           errorMessageMarkup: (
             <div>
-              <p className="font-bold text-xl text-headerRight">
-                Login failure
-              </p>
+              <p className="text-xl font-bold text-brightBlue">Login failure</p>
               <p>Have you created an account yet?</p>
             </div>
           ),
@@ -86,7 +84,7 @@ export default function LoginRegisterForm({
   return (
     <div>
       <div
-        className={`bg-gradient-to-r from-formLeft to-formRight rounded-md mt-4`}
+        className={`mt-4 rounded-md bg-gradient-to-r from-formLeft to-formRight`}
       >
         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
         <form
@@ -95,7 +93,7 @@ export default function LoginRegisterForm({
         >
           {/* register your input into the hook by invoking the "register" function */}
           <input
-            className="rounded-md m-1 px-2 py-1 text-brightBlue"
+            className="m-1 rounded-md px-2 py-1 text-brightBlue"
             placeholder="Email"
             type="email"
             required={true}
@@ -104,7 +102,7 @@ export default function LoginRegisterForm({
           />
           {/* include validation with required or other standard HTML validation rules */}
           <input
-            className="rounded-md m-1 px-2 py-1 text-brightBlue"
+            className="m-1 rounded-md px-2 py-1 text-brightBlue"
             placeholder="Password"
             type="password"
             pattern="[0-9a-zA-Z]{8,20}"
@@ -114,7 +112,7 @@ export default function LoginRegisterForm({
           {/* When registring a new user, also request first and last name */}
           {!loginForm && (
             <input
-              className="rounded-md m-1 px-2 py-1 text-brightBlue"
+              className="m-1 rounded-md px-2 py-1 text-brightBlue"
               placeholder="First name"
               type="text"
               pattern="[0-9a-zA-Z]{2,20}"
@@ -124,7 +122,7 @@ export default function LoginRegisterForm({
           )}
           {!loginForm && (
             <input
-              className="rounded-md m-1 px-2 py-1 text-brightBlue"
+              className="m-1 rounded-md px-2 py-1 text-brightBlue"
               placeholder="Last name"
               type="text"
               pattern="[0-9a-zA-Z]{2,20}"
@@ -137,15 +135,13 @@ export default function LoginRegisterForm({
           <input
             type="submit"
             value={loginForm ? "Login" : "Register"}
-            className={`dark:text-white text-veryDarkDesaturatedBlue font-bold cursor-pointer w-fit self-center my-3 p-1 rounded-md border-[1px] dark:border-white border-veryDarkDesaturatedBlue transition-all duration-500`}
+            className={`my-3 w-fit cursor-pointer self-center rounded-md border-[1px] border-veryDarkDesaturatedBlue p-1 font-bold text-veryDarkDesaturatedBlue transition-all duration-500 dark:border-white dark:text-white`}
           />
         </form>
         {errorModal.show && (
-          <ErrorModal
-            modalIsOpen={errorModal.show}
-            errorMessage={errorModal.errorMessageMarkup}
-            handleCloseModal={handleCloseModal}
-          ></ErrorModal>
+          <Modal handleCloseModal={handleCloseModal}>
+            {errorModal.errorMessageMarkup}
+          </Modal>
         )}
       </div>
     </div>

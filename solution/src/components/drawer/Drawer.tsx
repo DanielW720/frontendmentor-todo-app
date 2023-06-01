@@ -1,6 +1,7 @@
 import { useState } from "react";
 import iconCrossBrightblue from "../../assets/images/icon-cross-brightblue.svg";
 import iconMenuDrawer from "../../assets/images/icon-menu-drawer.svg";
+import { signOutUser } from "../../firebase";
 
 export const Drawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -22,7 +23,6 @@ export const Drawer = () => {
       <div
         id="drawer-backdrop"
         onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-          console.log(e);
           if ((e.target as HTMLDivElement).id === "drawer-backdrop") {
             toggleDrawer();
           }
@@ -43,7 +43,16 @@ export const Drawer = () => {
           </button>
           <ul className="ml-10 mt-10 w-full lg:ml-20 lg:mt-20">
             <li className="mt-10 text-lg">
-              <button>Sign out</button>
+              <button
+                onClick={() => {
+                  setTimeout(async () => {
+                    await signOutUser();
+                    toggleDrawer();
+                  }, 150);
+                }}
+              >
+                Sign out
+              </button>
             </li>
             <li className="mt-10 text-lg">
               <button>Unregister</button>
