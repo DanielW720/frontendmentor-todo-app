@@ -115,7 +115,7 @@ export default function LoginRegisterForm({
               className="m-1 rounded-md px-2 py-1 text-brightBlue"
               placeholder="First name"
               type="text"
-              pattern="[0-9a-zA-Z]{2,20}"
+              pattern="[0-9a-zA-Z]{1,20}"
               required={true}
               {...register("firstName")}
             />
@@ -125,7 +125,7 @@ export default function LoginRegisterForm({
               className="m-1 rounded-md px-2 py-1 text-brightBlue"
               placeholder="Last name"
               type="text"
-              pattern="[0-9a-zA-Z]{2,20}"
+              pattern="[0-9a-zA-Z]{1,20}"
               required={true}
               {...register("lastName")}
             />

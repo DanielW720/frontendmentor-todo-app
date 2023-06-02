@@ -5,6 +5,7 @@ import imageBgDesktopDark from "../../assets/images/bg-desktop-dark.jpg";
 import { auth } from "../../firebase";
 import imageSun from "../../assets/images/icon-sun.svg";
 import imageMoon from "../../assets/images/icon-moon.svg";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useDisplayName } from "../../contexts/userDisplayName/userDisplayNameContext";
 
 export const Header = ({
@@ -14,7 +15,12 @@ export const Header = ({
   isDarkTheme: boolean;
   updateTheme: any;
 }) => {
-  const userDisplayName = useDisplayName();
+  const [user, loading, _] = useAuthState(auth);
+  // useDisplayName() is an empty string, unless the user just registered, in which case it
+  // is the new users display name.
+  const displayName = useDisplayName();
+
+  if (loading) return <div>Hi i'm loading</div>;
 
   return (
     <header className="relative flex h-52 justify-center">
@@ -28,13 +34,15 @@ export const Header = ({
         alt="Header background"
         className="absolute left-0 top-0 z-0 hidden h-full w-full md:block"
       />
-      {auth.currentUser != null ? (
+      {user ? (
         <div className="relative flex w-full max-w-lg flex-row items-start justify-center px-6">
           <div className="mt-5 flex h-fit rounded-md border-[1px] p-1 text-sm shadow-sm-symmetric backdrop-blur-md backdrop-brightness-75">
-            <p className="mr-2">Welcome, {userDisplayName}!</p>
-            {auth.currentUser?.photoURL != undefined && (
+            <p className="mr-2">
+              Welcome, {displayName != "" ? displayName : user.displayName}!
+            </p>
+            {user.photoURL != undefined && (
               <img
-                src={auth.currentUser.photoURL || undefined}
+                src={user.photoURL || undefined}
                 alt="User profile"
                 width="20px"
                 className="rounded-full"

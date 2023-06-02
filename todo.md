@@ -22,7 +22,7 @@
 - [x] Firebase-error modal (couldn't create/login user)
 - [x] Dropdown/Side-menu for signing out or unregistering
 - [x] Loading screen when refreshing
-- [ ] React Context: Persist user display name on page reload
+- [x] React Context: Persist user display name on page reload
 - [ ] Todo-list height animation
 - [ ] Default sorting of items ([localStorage](https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/)?)
 - [ ] Drag n' drop items

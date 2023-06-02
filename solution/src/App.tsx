@@ -6,7 +6,7 @@ import { SignedOut } from "./components/signedOut/SignedOut";
 import { UserDisplayNameProvider } from "./contexts/userDisplayName/userDisplayNameContext";
 import { Drawer } from "./components/drawer/Drawer";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { LoadingAuth } from "./components/loadingAuth/LoadingAuth";
+import { LoadingScreen } from "./components/loadingScreen/LoadingScreen";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -18,7 +18,7 @@ function App() {
 
   // If loading, display a loading page
   if (loading) {
-    return <LoadingAuth />;
+    return <LoadingScreen />;
   }
 
   return (
