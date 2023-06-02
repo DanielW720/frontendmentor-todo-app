@@ -1,35 +1,35 @@
 import { Header } from "./components/header/Header";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import List from "./components/todo/List";
 import { auth } from "./firebase";
-import { onAuthStateChanged } from "firebase/auth";
 import { SignedOut } from "./components/signedOut/SignedOut";
 import { UserDisplayNameProvider } from "./contexts/userDisplayName/userDisplayNameContext";
 import { Drawer } from "./components/drawer/Drawer";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { LoadingAuth } from "./components/loadingAuth/LoadingAuth";
 
 function App() {
   const [theme, setTheme] = useState("dark");
-  const [isSignedIn, setIsSignedIn] = useState(auth.currentUser != null);
+  const [user, loading, _] = useAuthState(auth);
 
   const updateTheme = () => {
     setTheme((prevState) => (prevState === "dark" ? "" : "dark"));
   };
 
-  useEffect(() => {
-    // Observer on the auth object
-    onAuthStateChanged(auth, (user) => {
-      setIsSignedIn(user != null);
-    });
-  }, []);
+  // If loading, display a loading page
+  if (loading) {
+    return <LoadingAuth />;
+  }
 
   return (
     <div className={`${theme} max-h-screen overflow-hidden`}>
       <div className="min-h-screen min-w-[275px] bg-white text-lightGrayishBlue dark:bg-veryDarkBlue">
-        {isSignedIn && <Drawer />}
+        {loading && <div>Loading...</div>}
+        {user && <Drawer />}
         <UserDisplayNameProvider>
           <Header isDarkTheme={theme === "dark"} updateTheme={updateTheme} />
           <main className="flex justify-center">
-            {isSignedIn ? (
+            {user ? (
               <List updateTheme={updateTheme} isDarkTheme={theme === "dark"} />
             ) : (
               <SignedOut />
