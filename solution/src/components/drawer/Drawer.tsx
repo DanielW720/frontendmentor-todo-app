@@ -1,7 +1,7 @@
 import { useState } from "react";
 import iconCrossBrightblue from "../../assets/images/icon-cross-brightblue.svg";
 import iconMenuDrawer from "../../assets/images/icon-menu-drawer.svg";
-import { signOutUser } from "../../firebase";
+import { deleteUserFromAuthAndFirestore, signOutUser } from "../../firebase";
 
 export const Drawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -55,7 +55,16 @@ export const Drawer = () => {
               </button>
             </li>
             <li className="mt-10 text-lg">
-              <button>Unregister</button>
+              <button
+                onClick={() => {
+                  setTimeout(async () => {
+                    await deleteUserFromAuthAndFirestore();
+                    toggleDrawer();
+                  }, 150);
+                }}
+              >
+                Unregister
+              </button>
             </li>
           </ul>
         </div>

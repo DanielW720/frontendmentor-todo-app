@@ -8,6 +8,7 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
+  deleteUser,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -93,5 +94,35 @@ export async function createEmailPasswordUser(
   } catch (e) {
     console.error("Could not create email-password user: ", e);
     throw "CreateEmailPasswordUserError";
+  }
+}
+
+/**
+ * Delete a user from Firebase Authentication and their data in Firestore.
+ */
+export async function deleteUserFromAuthAndFirestore() {
+  if (!auth.currentUser) {
+    console.error("No user is signed in, cannot delete user account");
+    throw "DeleteUserFromAuthAndFirestoreError: User not signed in";
+  }
+  try {
+    const uid = auth.currentUser.uid;
+    await deleteUser(auth.currentUser!);
+    await deleteUserFirestoreData(uid);
+  } catch (e) {
+    console.error("Could not delete user: ", e);
+    throw "DeleteUserFromAuthAndFirestoreError: other";
+  }
+}
+
+/**
+ * Delete the data belonging to the users collection.
+ * @param uid User ID
+ */
+async function deleteUserFirestoreData(uid: string) {
+  try {
+  } catch (e) {
+    console.error("Could not delete users Firestore data: ", e);
+    throw "DeleteUserFirestoreData";
   }
 }
