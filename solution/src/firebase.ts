@@ -1,5 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  getDocs,
+  getFirestore,
+} from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -9,6 +14,8 @@ import {
   signOut,
   updateProfile,
   deleteUser,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -66,6 +73,30 @@ export async function signInUser(
   }
 }
 
+export async function reauthenticateUser(
+  method: string,
+  email?: string,
+  password?: string
+) {
+  switch (method) {
+    case "google":
+      break;
+    case "password":
+      try {
+        await reauthenticateWithCredential(
+          auth.currentUser!,
+          EmailAuthProvider.credential(email!, password!)
+        );
+      } catch (e) {
+        console.error("Could not reauthenticate user with password: ", e);
+        throw "ReauthenticateWithPasswordError";
+      }
+      break;
+    default:
+      break;
+  }
+}
+
 /**
  * Sign out user.
  * @returns True if successful sign out, else false
@@ -106,21 +137,25 @@ export async function deleteUserFromAuthAndFirestore() {
     throw "DeleteUserFromAuthAndFirestoreError: User not signed in";
   }
   try {
-    const uid = auth.currentUser.uid;
+    await deleteUserFirestoreData();
     await deleteUser(auth.currentUser!);
-    await deleteUserFirestoreData(uid);
   } catch (e) {
-    console.error("Could not delete user: ", e);
+    console.error("Could not delete user and/or user data: ", e);
     throw "DeleteUserFromAuthAndFirestoreError: other";
   }
 }
 
 /**
- * Delete the data belonging to the users collection.
- * @param uid User ID
+ * Delete the users' Cloud Firestore data.
  */
-async function deleteUserFirestoreData(uid: string) {
+async function deleteUserFirestoreData() {
   try {
+    const userCollectionRef = collection(
+      db,
+      `users/${auth.currentUser!.uid}/items`
+    );
+    const userCollectionSnap = await getDocs(userCollectionRef);
+    userCollectionSnap.forEach(async (doc) => await deleteDoc(doc.ref));
   } catch (e) {
     console.error("Could not delete users Firestore data: ", e);
     throw "DeleteUserFirestoreData";

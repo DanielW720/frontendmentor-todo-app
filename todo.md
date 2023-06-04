@@ -12,7 +12,7 @@
 - [ ] Email link authentication
 - [ ] [Differentiating email/password from email link](https://firebase.google.com/docs/auth/web/email-link-auth?hl=en&authuser=0)
 - [x] Unregister
-- [ ] Delete user data upon unregister (user delete)
+- [x] Delete user data upon unregister (user delete)
 - [ ] Hosting: dev/test and production environments
 
 ## UI
@@ -24,7 +24,7 @@
 - [x] Dropdown/Side-menu for signing out or unregistering
 - [x] Loading screen when refreshing
 - [x] React Context: Persist user display name on page reload
-- [ ] Unregister: "Are you sure?"
+- [x] Prompt user for re-authentication upon pressing "unregister"
 - [ ] Todo-list height animation
 - [ ] Default sorting of items ([localStorage](https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/)?)
 - [ ] Drag n' drop items

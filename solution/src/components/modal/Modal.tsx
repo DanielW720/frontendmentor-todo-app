@@ -34,7 +34,7 @@ const RootModal = ({
       }}
       className={`absolute left-0 top-0 z-50 flex h-screen w-screen items-center justify-center backdrop-blur-sm`}
     >
-      <div className="mx-2 flex h-40 flex-col items-center justify-between rounded-md bg-formLeft p-5">
+      <div className="mx-2 flex min-h-[160px] flex-col items-center justify-between rounded-md bg-formLeft p-5">
         {children}
         <button className="text-white" onClick={handleCloseModal}>
           Close

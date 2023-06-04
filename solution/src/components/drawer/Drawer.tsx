@@ -1,13 +1,20 @@
 import { useState } from "react";
 import iconCrossBrightblue from "../../assets/images/icon-cross-brightblue.svg";
 import iconMenuDrawer from "../../assets/images/icon-menu-drawer.svg";
-import { deleteUserFromAuthAndFirestore, signOutUser } from "../../firebase";
+import { signOutUser } from "../../firebase";
+import { Unregister } from "../unregister/Unregister";
 
 export const Drawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isReauthenticateFormOpen, setIsReauthenticateFormOpen] =
+    useState(false);
 
   const toggleDrawer = () => {
     setIsDrawerOpen((prevState) => !prevState);
+  };
+
+  const toggleReauthenticateForm = () => {
+    setIsReauthenticateFormOpen((prevState) => !prevState);
   };
 
   return (
@@ -56,11 +63,10 @@ export const Drawer = () => {
             </li>
             <li className="mt-10 text-lg">
               <button
-                onClick={() => {
-                  setTimeout(async () => {
-                    await deleteUserFromAuthAndFirestore();
-                    toggleDrawer();
-                  }, 150);
+                onClick={async () => {
+                  // Reauthenticate user before deleting user and user data
+                  toggleReauthenticateForm();
+                  toggleDrawer();
                 }}
               >
                 Unregister
@@ -69,6 +75,9 @@ export const Drawer = () => {
           </ul>
         </div>
       </div>
+      {isReauthenticateFormOpen && (
+        <Unregister handleCloseModal={toggleReauthenticateForm} />
+      )}
     </div>
   );
 };
