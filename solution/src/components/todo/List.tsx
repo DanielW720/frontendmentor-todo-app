@@ -12,6 +12,7 @@ import {
   updateItemsActiveState,
   updateItemsTitle,
 } from "./api";
+import { Droppable } from "@hello-pangea/dnd";
 
 const defaultTodoList: TodoList = [];
 const defaultFilter: Filter = "All";
@@ -150,8 +151,8 @@ const List = ({
   };
 
   const titleAndThemeSwitchMarkup = (
-    <div className="pt-12 w-full flex justify-between items-start">
-      <h1 className="text-white tracking-[0.7rem] text-3xl relative z-10 font-bold">
+    <div className="flex w-full items-start justify-between pt-12">
+      <h1 className="relative z-10 text-3xl font-bold tracking-[0.7rem] text-white">
         TODO
       </h1>
       <button onClick={updateTheme}>
@@ -167,29 +168,39 @@ const List = ({
   );
 
   return (
-    <div className="relative pl-6 pr-6 bottom-44 w-full max-w-lg">
+    <div className="relative bottom-44 w-full max-w-lg pl-6 pr-6">
       {titleAndThemeSwitchMarkup}
 
       <CreateItem addTodo={onSubmitNewTodoHandler} />
 
-      <div className="rounded-md w-full overflow-hidden shadow-3lg-light dark:shadow-3lg-dark">
+      <div className="w-full overflow-hidden rounded-md shadow-3lg-light dark:shadow-3lg-dark">
         {/* // List of items */}
-        <div className="max-h-[290px] md:max-h-[400px] overflow-y-scroll no-scrollbar">
-          {getFilteredItemList().map((item) => {
-            return (
-              <Item
-                key={item.id}
-                item={item}
-                onStatusChangeHandler={onStatusChangeHandler}
-                onRemoveItemHandler={onRemoveItemHandler}
-                onUpdateItemTitleHandler={onUpdateItemTitleHandler}
-              />
-            );
-          })}
+        <div className="no-scrollbar max-h-[290px] overflow-y-scroll md:max-h-[400px]">
+          <Droppable droppableId="items" type="ITEM">
+            {(provided, _snapshot) => (
+              <div
+                ref={provided.innerRef}
+                className="bg-veryDarkDesaturatedBlue"
+                {...provided.droppableProps}
+              >
+                {getFilteredItemList().map((item, idx) => (
+                  <Item
+                    key={item.id}
+                    item={item}
+                    draggableIdx={idx}
+                    onStatusChangeHandler={onStatusChangeHandler}
+                    onRemoveItemHandler={onRemoveItemHandler}
+                    onUpdateItemTitleHandler={onUpdateItemTitleHandler}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </div>
 
         {/* // Clear completed button */}
-        <div className="h-[2.5rem] bg-veryLightGray dark:bg-veryDarkDesaturatedBlue text-veryDarkGrayishBlueLightTheme dark:text-darkGrayishBlue text-xs flex justify-between items-center pl-4 pr-4">
+        <div className="flex h-[2.5rem] items-center justify-between bg-veryLightGray pl-4 pr-4 text-xs text-veryDarkGrayishBlueLightTheme dark:bg-veryDarkDesaturatedBlue dark:text-darkGrayishBlue">
           <p>{itemsLeft} Items left</p>
           <div className="hidden md:block">
             <FilterOptions
@@ -205,13 +216,13 @@ const List = ({
           </button>
         </div>
       </div>
-      <div className="h-[3rem] md:hidden mt-6 shadow-3lg-light dark:shadow-3lg-dark">
+      <div className="mt-6 h-[3rem] shadow-3lg-light dark:shadow-3lg-dark md:hidden">
         <FilterOptions
           onFilterChangeHandler={onFilterChangeHandler}
           filter={filter}
         />
       </div>
-      <p className="text-darkGrayishBlue text-center text-sm mt-10">
+      <p className="mt-10 text-center text-sm text-darkGrayishBlue">
         Drag and drop to reorder list
       </p>
     </div>
