@@ -15,12 +15,10 @@ export const Header = ({
   isDarkTheme: boolean;
   updateTheme: any;
 }) => {
-  const [user, loading, _] = useAuthState(auth);
+  const [user, _loading, _error] = useAuthState(auth);
   // useDisplayName() is an empty string, unless the user just registered, in which case it
   // is the new users display name.
   const displayName = useDisplayName();
-
-  if (loading) return <div>Hi i'm loading</div>;
 
   return (
     <header className="relative flex h-52 justify-center">
@@ -40,9 +38,9 @@ export const Header = ({
             <p className="mr-2">
               Welcome, {displayName != "" ? displayName : user.displayName}!
             </p>
-            {user.photoURL != undefined && (
+            {user.photoURL && (
               <img
-                src={user.photoURL || undefined}
+                src={user.photoURL}
                 alt="User profile"
                 width="20px"
                 className="rounded-full"
