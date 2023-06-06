@@ -1,8 +1,7 @@
 import { CreateItem } from "./CreateItem";
 import { Item } from "./Item";
 import { useEffect, useState } from "react";
-import imageSun from "../../assets/images/icon-sun.svg";
-import imageMoon from "../../assets/images/icon-moon.svg";
+
 import { FilterOptions } from "./FilterOptions";
 import { TodoList, Filter, Todo } from "./types";
 import {
@@ -13,6 +12,8 @@ import {
   updateItemsTitle,
 } from "./api";
 import { Droppable } from "@hello-pangea/dnd";
+import TitleAndThemeSwitch from "./TitleAndThemeSwitch";
+import { FooterMenu } from "./FooterMenu";
 
 const defaultFilter: Filter = "All";
 
@@ -28,7 +29,6 @@ const List = ({
   isDarkTheme: boolean;
 }) => {
   const [filter, setFilter] = useState<Filter>(defaultFilter);
-  const itemsLeft = items.filter((item) => item.isActive).length;
 
   // Fetch items on first render
   useEffect(() => {
@@ -152,26 +152,12 @@ const List = ({
     setItems(newList);
   };
 
-  const titleAndThemeSwitchMarkup = (
-    <div className="flex w-full items-start justify-between pt-12">
-      <h1 className="relative z-10 text-3xl font-bold tracking-[0.7rem] text-white">
-        TODO
-      </h1>
-      <button onClick={updateTheme}>
-        {
-          <img
-            src={isDarkTheme ? imageSun : imageMoon}
-            alt="Sun icon"
-            className="relative z-10"
-          />
-        }
-      </button>
-    </div>
-  );
-
   return (
     <div className="relative bottom-44 w-full max-w-lg pl-6 pr-6">
-      {titleAndThemeSwitchMarkup}
+      <TitleAndThemeSwitch
+        isDarkTheme={isDarkTheme}
+        updateTheme={updateTheme}
+      />
 
       <CreateItem addTodo={onSubmitNewTodoHandler} />
 
@@ -201,29 +187,19 @@ const List = ({
           </Droppable>
         </div>
 
-        {/* // Clear completed button */}
-        <div className="flex h-[2.5rem] items-center justify-between bg-veryLightGray pl-4 pr-4 text-xs text-veryDarkGrayishBlueLightTheme dark:bg-veryDarkDesaturatedBlue dark:text-darkGrayishBlue">
-          <p>{itemsLeft} Items left</p>
-          <div className="hidden md:block">
-            <FilterOptions
-              onFilterChangeHandler={onFilterChangeHandler}
-              filter={filter}
-            />
-          </div>
-          <button
-            onClick={deleteCompletedItems}
-            className="cursor-pointer hover:font-bold hover:text-veryDarkGrayishBlueLightTheme dark:hover:text-lightGrayishBlue"
-          >
-            Clear Completed
-          </button>
-        </div>
-      </div>
-      <div className="mt-6 h-[3rem] shadow-3lg-light dark:shadow-3lg-dark md:hidden">
-        <FilterOptions
-          onFilterChangeHandler={onFilterChangeHandler}
+        <FooterMenu
+          itemsLeft={items.filter((item) => item.isActive).length}
           filter={filter}
+          onFilterChangeHandler={onFilterChangeHandler}
+          deleteCompletedItems={deleteCompletedItems}
         />
       </div>
+
+      <FilterOptions
+        onFilterChangeHandler={onFilterChangeHandler}
+        filter={filter}
+      />
+
       <p className="mt-10 text-center text-sm text-darkGrayishBlue">
         Drag and drop to reorder list
       </p>

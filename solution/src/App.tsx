@@ -28,7 +28,6 @@ function App() {
     setItems(result);
   };
 
-  // const onDragEnd = useCallback(() => {}, []);
   const onDragEnd = (result: DropResult) => {
     console.log(result);
     if (!result.destination) return;
