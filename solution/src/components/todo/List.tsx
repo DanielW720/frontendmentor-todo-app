@@ -14,17 +14,19 @@ import {
 } from "./api";
 import { Droppable } from "@hello-pangea/dnd";
 
-const defaultTodoList: TodoList = [];
 const defaultFilter: Filter = "All";
 
 const List = ({
+  items,
+  setItems,
   updateTheme,
   isDarkTheme,
 }: {
+  items: TodoList;
+  setItems: React.Dispatch<React.SetStateAction<TodoList>>;
   updateTheme: any;
   isDarkTheme: boolean;
 }) => {
-  const [items, setItems] = useState<TodoList>(defaultTodoList);
   const [filter, setFilter] = useState<Filter>(defaultFilter);
   const itemsLeft = items.filter((item) => item.isActive).length;
 
