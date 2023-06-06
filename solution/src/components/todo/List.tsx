@@ -17,6 +17,17 @@ import { FooterMenu } from "./FooterMenu";
 
 const defaultFilter: Filter = "All";
 
+/**
+ * Find index of item with given id.
+ * @param items The list of items
+ * @param id Id of the item
+ * @returns The index of the item in the items list
+ */
+function findIndexOf(items: TodoList, id: string): number {
+  const item = items.find((item) => item.id === id) as Todo;
+  return items.indexOf(item);
+}
+
 const List = ({
   items,
   setItems,
@@ -40,16 +51,6 @@ const List = ({
   }, []);
 
   /**
-   * Find index of item with given id.
-   * @param id Id of the item
-   * @returns The index of the item in the items list
-   */
-  function findIndexOf(id: string): number {
-    const item = items.find((item) => item.id === id) as Todo;
-    return items.indexOf(item);
-  }
-
-  /**
    * Update the filter option.
    * @param filter The chosen filter
    */
@@ -62,7 +63,7 @@ const List = ({
    * @param id Id of the item
    */
   const onStatusChangeHandler = (id: string): void => {
-    const idx = findIndexOf(id);
+    const idx = findIndexOf(items, id);
     // Update item in Firestore
     updateItemsActiveState(id, !items[idx].isActive);
     // Update item on client
@@ -102,7 +103,7 @@ const List = ({
     // Remove item in Firestore
     deleteItem(id);
     // Remove item on client
-    const idx = findIndexOf(id);
+    const idx = findIndexOf(items, id);
     const newItems = [...items];
     newItems.splice(idx, 1);
     setItems(newItems);
