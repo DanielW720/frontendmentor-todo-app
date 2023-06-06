@@ -29,7 +29,6 @@ function App() {
   };
 
   const onDragEnd = (result: DropResult) => {
-    console.log(result);
     if (!result.destination) return;
     reorderItems(result.source.index, result.destination.index);
   };

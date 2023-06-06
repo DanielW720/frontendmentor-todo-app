@@ -28,6 +28,14 @@ function findIndexOf(items: TodoList, id: string): number {
   return items.indexOf(item);
 }
 
+/**
+ *
+ * @param items
+ */
+function sortItems(items: TodoList) {
+  return items.sort((a, b) => a.index - b.index);
+}
+
 const List = ({
   items,
   setItems,
@@ -44,7 +52,8 @@ const List = ({
   // Fetch items on first render
   useEffect(() => {
     const fetchData = async () => {
-      const items = await getItems();
+      let items = await getItems();
+      items = sortItems(items);
       setItems(items);
     };
     fetchData();
@@ -86,6 +95,7 @@ const List = ({
           id: docRef.id,
           title: title,
           isActive: true,
+          index: 0,
         },
         ...items,
       ];

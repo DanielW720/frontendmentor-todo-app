@@ -7,12 +7,13 @@
 - [x] Email/password authentication
 - [x] Modify Firestore CRUD methods to use current user
 - [x] Firestore security rules
+- [x] Unregister
+- [x] Delete user data upon unregister (user delete)
+- [ ] Item objects: Store the sorting set by user
 - [ ] Fix capital letters in first name and last name upon registration with email (cloud functions?)
 - [ ] Auth state persistence
 - [ ] Email link authentication
 - [ ] [Differentiating email/password from email link](https://firebase.google.com/docs/auth/web/email-link-auth?hl=en&authuser=0)
-- [x] Unregister
-- [x] Delete user data upon unregister (user delete)
 - [ ] Hosting: dev/test and production environments
 
 ## UI
@@ -25,9 +26,9 @@
 - [x] Loading screen when refreshing
 - [x] React Context: Persist user display name on page reload
 - [x] Prompt user for re-authentication upon pressing "unregister"
+- [x] Drag n' drop items
 - [ ] Todo-list height animation
-- [ ] Default sorting of items ([localStorage](https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/)?)
-- [ ] Drag n' drop items
+- [ ] Cash theme preference
 
 ## Else
 

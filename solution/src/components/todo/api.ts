@@ -20,6 +20,7 @@ export const putItem = async (title: string) => {
       {
         title: title,
         isActive: true,
+        index: 0,
       }
     );
     return docRef;
@@ -46,6 +47,7 @@ export const getItems = async () => {
         id: doc.id,
         title: doc.data().title,
         isActive: doc.data().isActive,
+        index: doc.data().index,
       })
     );
     return items;
