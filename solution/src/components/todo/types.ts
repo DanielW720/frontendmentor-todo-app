@@ -4,5 +4,5 @@ export type Todo = {
   isActive: boolean;
   index: number;
 };
-export type TodoList = Todo[];
+export type TodoList = Todo[] | null;
 export type Filter = "All" | "Active" | "Completed";

@@ -1,7 +1,6 @@
 import { CreateItem } from "./CreateItem";
 import { Item } from "./Item";
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, memo } from "react";
 import { FilterOptions } from "./FilterOptions";
 import { TodoList, Filter, Todo } from "./types";
 import {
@@ -14,6 +13,8 @@ import {
 import { Droppable } from "@hello-pangea/dnd";
 import TitleAndThemeSwitch from "./TitleAndThemeSwitch";
 import { FooterMenu } from "./FooterMenu";
+import { AnimatePresence, motion } from "framer-motion";
+import { LoadingScreen } from "../loadingScreen/LoadingScreen";
 
 const defaultFilter: Filter = "All";
 
@@ -23,7 +24,7 @@ const defaultFilter: Filter = "All";
  * @param id Id of the item
  * @returns The index of the item in the items list
  */
-function findIndexOf(items: TodoList, id: string): number {
+function findIndexOf(items: NonNullable<TodoList>, id: string): number {
   const item = items.find((item) => item.id === id) as Todo;
   return items.indexOf(item);
 }
@@ -32,7 +33,7 @@ function findIndexOf(items: TodoList, id: string): number {
  *
  * @param items
  */
-function sortItems(items: TodoList) {
+function sortItems(items: NonNullable<TodoList>) {
   return items.sort((a, b) => a.index - b.index);
 }
 
@@ -58,6 +59,16 @@ const List = ({
     };
     fetchData();
   }, []);
+
+  if (!items) {
+    console.log("Null");
+    return <LoadingScreen />;
+  } else if (items.length === 0) {
+    console.log("Zero items");
+    // Todo: no-items component
+    return <div>{":("}</div>;
+  }
+  console.log("Multiple items");
 
   /**
    * Update the filter option.
@@ -182,22 +193,32 @@ const List = ({
                 className="bg-veryDarkDesaturatedBlue"
                 {...provided.droppableProps}
               >
-                {getFilteredItemList().map((item, idx) => (
-                  <Item
-                    key={item.id}
-                    item={item}
-                    draggableIdx={idx}
-                    onStatusChangeHandler={onStatusChangeHandler}
-                    onRemoveItemHandler={onRemoveItemHandler}
-                    onUpdateItemTitleHandler={onUpdateItemTitleHandler}
-                  />
-                ))}
+                <AnimatePresence>
+                  <motion.div
+                    style={{ overflow: "hidden" }}
+                    initial={{ height: 0 }}
+                    animate={{ height: "auto" }}
+                    transition={{ duration: 0.5, type: "spring" }}
+                    exit={{ height: 0 }}
+                    key={"container"}
+                  >
+                    {getFilteredItemList().map((item, idx) => (
+                      <Item
+                        key={item.id}
+                        item={item}
+                        draggableIdx={idx}
+                        onStatusChangeHandler={onStatusChangeHandler}
+                        onRemoveItemHandler={onRemoveItemHandler}
+                        onUpdateItemTitleHandler={onUpdateItemTitleHandler}
+                      />
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
                 {provided.placeholder}
               </div>
             )}
           </Droppable>
         </div>
-
         <FooterMenu
           itemsLeft={items.filter((item) => item.isActive).length}
           filter={filter}
