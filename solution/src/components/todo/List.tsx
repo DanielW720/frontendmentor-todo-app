@@ -29,14 +29,6 @@ function findIndexOf(items: NonNullable<TodoList>, id: string): number {
   return items.indexOf(item);
 }
 
-/**
- *
- * @param items
- */
-function sortItems(items: NonNullable<TodoList>) {
-  return items.sort((a, b) => a.index - b.index);
-}
-
 const List = ({
   items,
   setItems,
@@ -49,16 +41,6 @@ const List = ({
   isDarkTheme: boolean;
 }) => {
   const [filter, setFilter] = useState<Filter>(defaultFilter);
-
-  // Fetch items on first render
-  useEffect(() => {
-    const fetchData = async () => {
-      let items = await getItems();
-      items = sortItems(items);
-      setItems(items);
-    };
-    fetchData();
-  }, []);
 
   if (!items) return <LoadingScreen />;
   if (items.length === 0) return <div>{":("}</div>;

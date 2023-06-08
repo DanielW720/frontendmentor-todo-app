@@ -9,7 +9,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { LoadingScreen } from "./components/loadingScreen/LoadingScreen";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import { TodoList } from "./components/todo/types";
-import { updateAllItemIndices } from "./components/todo/api";
+import { getItems } from "./components/todo/api";
+// import { updateAllItemIndices } from "./components/todo/api";
+
+/**
+ *
+ * @param items
+ */
+function sortItems(items: NonNullable<TodoList>) {
+  return items.sort((a, b) => a.index - b.index);
+}
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -18,10 +27,20 @@ function App() {
 
   useEffect(() => {
     if (items) {
-      console.log("Updating order in Firestore");
+      // console.log("Updating order in Firestore");
       // updateAllItemIndices(items);
     }
   }, [items]);
+
+  // Fetch items when user has signed in and is loaded
+  useEffect(() => {
+    const fetchData = async () => {
+      let items = await getItems();
+      items = sortItems(items);
+      setItems(items);
+    };
+    if (user) fetchData();
+  }, [loadingAuth]);
 
   // If loading, display a loading page
   if (loadingAuth) return <LoadingScreen />;
