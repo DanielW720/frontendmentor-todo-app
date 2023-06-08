@@ -17,7 +17,10 @@ function App() {
   const [items, setItems] = useState<TodoList>(null);
 
   useEffect(() => {
-    if (items) updateAllItemIndices(items);
+    if (items) {
+      console.log("Updating order in Firestore");
+      // updateAllItemIndices(items);
+    }
   }, [items]);
 
   // If loading, display a loading page
@@ -40,28 +43,28 @@ function App() {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className={`${theme} max-h-screen overflow-hidden`}>
-        <div className="min-h-screen min-w-[275px] bg-white text-lightGrayishBlue dark:bg-veryDarkBlue">
-          {user && <Drawer />}
-          <UserDisplayNameProvider>
-            <Header isDarkTheme={theme === "dark"} updateTheme={updateTheme} />
-            <main className="flex justify-center">
-              {user ? (
-                <List
-                  items={items}
-                  setItems={setItems}
-                  updateTheme={updateTheme}
-                  isDarkTheme={theme === "dark"}
-                />
-              ) : (
-                <SignedOut />
-              )}
-            </main>
-          </UserDisplayNameProvider>
-        </div>
+    // <DragDropContext onDragEnd={onDragEnd}>
+    <div className={`${theme} max-h-screen overflow-hidden`}>
+      <div className="min-h-screen min-w-[275px] bg-white text-lightGrayishBlue dark:bg-veryDarkBlue">
+        {user && <Drawer />}
+        <UserDisplayNameProvider>
+          <Header isDarkTheme={theme === "dark"} updateTheme={updateTheme} />
+          <main className="flex justify-center">
+            {user ? (
+              <List
+                items={items}
+                setItems={setItems}
+                updateTheme={updateTheme}
+                isDarkTheme={theme === "dark"}
+              />
+            ) : (
+              <SignedOut />
+            )}
+          </main>
+        </UserDisplayNameProvider>
       </div>
-    </DragDropContext>
+    </div>
+    // </DragDropContext>
   );
 }
 

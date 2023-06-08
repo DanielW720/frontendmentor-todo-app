@@ -13,7 +13,7 @@ import {
 import { Droppable } from "@hello-pangea/dnd";
 import TitleAndThemeSwitch from "./TitleAndThemeSwitch";
 import { FooterMenu } from "./FooterMenu";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, Reorder, motion } from "framer-motion";
 import { LoadingScreen } from "../loadingScreen/LoadingScreen";
 
 const defaultFilter: Filter = "All";
@@ -178,40 +178,48 @@ const List = ({
 
       <div className="w-full overflow-hidden rounded-md shadow-3lg-light dark:shadow-3lg-dark">
         {/* // List of items */}
-        <div className="no-scrollbar max-h-[290px] overflow-y-scroll md:max-h-[400px]">
-          <Droppable droppableId="items" type="ITEM">
+        {/* <Droppable droppableId="items" type="ITEM">
             {(provided, _snapshot) => (
               <div
                 ref={provided.innerRef}
                 className="bg-veryDarkDesaturatedBlue"
                 {...provided.droppableProps}
-              >
-                <AnimatePresence>
-                  <motion.div
-                    style={{ overflow: "hidden" }}
-                    initial={{ height: 0 }}
-                    animate={{ height: "auto" }}
-                    transition={{ duration: 0.5, type: "spring" }}
-                    exit={{ height: 0 }}
-                    key={"container"}
-                  >
-                    {getFilteredItemList().map((item, idx) => (
-                      <Item
-                        key={item.id}
-                        item={item}
-                        draggableIdx={idx}
-                        onStatusChangeHandler={onStatusChangeHandler}
-                        onRemoveItemHandler={onRemoveItemHandler}
-                        onUpdateItemTitleHandler={onUpdateItemTitleHandler}
-                      />
-                    ))}
-                  </motion.div>
-                </AnimatePresence>
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </div>
+              > */}
+        <AnimatePresence>
+          <motion.div
+            style={{ overflow: "hidden" }}
+            initial={{ height: 0 }}
+            animate={{ height: "auto" }}
+            transition={{ duration: 0.5, type: "spring" }}
+            exit={{ height: 0 }}
+            key={"container"}
+          >
+            <Reorder.Group
+              axis="y"
+              onReorder={setItems}
+              values={items}
+              layoutScroll
+              className="no-scrollbar max-h-[290px] overflow-y-scroll md:max-h-[400px]"
+            >
+              {items.map((item, idx) => (
+                <Reorder.Item key={item.id} value={item}>
+                  <Item
+                    key={item.id}
+                    item={item}
+                    draggableIdx={idx}
+                    onStatusChangeHandler={onStatusChangeHandler}
+                    onRemoveItemHandler={onRemoveItemHandler}
+                    onUpdateItemTitleHandler={onUpdateItemTitleHandler}
+                  />
+                </Reorder.Item>
+              ))}
+            </Reorder.Group>
+          </motion.div>
+        </AnimatePresence>
+        {/* {provided.placeholder}
+               </div>
+            )} 
+           </Droppable> */}
         <FooterMenu
           itemsLeft={items.filter((item) => item.isActive).length}
           filter={filter}

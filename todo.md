@@ -14,7 +14,7 @@
 - [ ] Auth state persistence
 - [ ] Email link authentication
 - [ ] [Differentiating email/password from email link](https://firebase.google.com/docs/auth/web/email-link-auth?hl=en&authuser=0)
-- [ ] Hosting: dev/test and production environments
+- [ ] Hosting: dev, test and production environments
 
 ## UI
 
@@ -27,6 +27,7 @@
 - [x] React Context: Persist user display name on page reload
 - [x] Prompt user for re-authentication upon pressing "unregister"
 - [x] Drag n' drop items
+- [ ] App useEffect(): Do not execute setup code if rapid calls
 - [ ] EmptyList-component
 - [ ] Todo-list height animation
 - [ ] Cash theme preference
