@@ -1,5 +1,5 @@
 import { Header } from "./components/header/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import List from "./components/todo/List";
 import { auth } from "./firebase";
 import { SignedOut } from "./components/signedOut/SignedOut";
@@ -9,11 +9,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { LoadingScreen } from "./components/loadingScreen/LoadingScreen";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import { TodoList } from "./components/todo/types";
+import { updateAllItemIndices } from "./components/todo/api";
 
 function App() {
   const [theme, setTheme] = useState("dark");
   const [user, loadingAuth] = useAuthState(auth);
   const [items, setItems] = useState<TodoList>(null);
+
+  useEffect(() => {
+    if (items) updateAllItemIndices(items);
+  }, [items]);
 
   // If loading, display a loading page
   if (loadingAuth) return <LoadingScreen />;

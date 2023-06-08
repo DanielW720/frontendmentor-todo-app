@@ -9,7 +9,7 @@
 - [x] Firestore security rules
 - [x] Unregister
 - [x] Delete user data upon unregister (user delete)
-- [ ] Item objects: Store the sorting set by user
+- [x] Item objects: Store the sorting set by user
 - [ ] Fix capital letters in first name and last name upon registration with email (cloud functions?)
 - [ ] Auth state persistence
 - [ ] Email link authentication
@@ -27,6 +27,7 @@
 - [x] React Context: Persist user display name on page reload
 - [x] Prompt user for re-authentication upon pressing "unregister"
 - [x] Drag n' drop items
+- [ ] EmptyList-component
 - [ ] Todo-list height animation
 - [ ] Cash theme preference
 

@@ -1,6 +1,6 @@
 import { CreateItem } from "./CreateItem";
 import { Item } from "./Item";
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState } from "react";
 import { FilterOptions } from "./FilterOptions";
 import { TodoList, Filter, Todo } from "./types";
 import {
@@ -60,15 +60,8 @@ const List = ({
     fetchData();
   }, []);
 
-  if (!items) {
-    console.log("Null");
-    return <LoadingScreen />;
-  } else if (items.length === 0) {
-    console.log("Zero items");
-    // Todo: no-items component
-    return <div>{":("}</div>;
-  }
-  console.log("Multiple items");
+  if (!items) return <LoadingScreen />;
+  if (items.length === 0) return <div>{":("}</div>;
 
   /**
    * Update the filter option.
