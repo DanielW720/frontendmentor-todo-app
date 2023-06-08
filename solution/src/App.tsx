@@ -25,11 +25,18 @@ function App() {
   const [user, loadingAuth] = useAuthState(auth);
   const [items, setItems] = useState<TodoList>(null);
 
+  // When items gets updated, write the new index values to Cloud Firestore
   useEffect(() => {
+    let firestoreUpdate: NodeJS.Timeout;
+    // Don't update Cloud Firestore documents on first render (when items is null)
     if (items) {
-      // console.log("Updating order in Firestore");
-      // updateAllItemIndices(items);
+      firestoreUpdate = setTimeout(() => {
+        console.log("Updating order in Firestore");
+        // updateAllItemIndices(items);
+      }, 1000);
     }
+    // Clean up timer so no unnecessary writes are made to Firestore
+    return () => clearTimeout(firestoreUpdate);
   }, [items]);
 
   // Fetch items when user has signed in and is loaded
