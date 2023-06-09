@@ -64,7 +64,7 @@ export const Item = ({
           />
         </div>
 
-        <button onPointerDown={(e) => controls.start(e)}>
+        <button className="mt-[6px]" onPointerDown={(e) => controls.start(e)}>
           <span className="material-symbols-outlined mr-3">drag_indicator</span>
         </button>
 

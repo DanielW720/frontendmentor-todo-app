@@ -8,7 +8,8 @@ import { Drawer } from "./components/drawer/Drawer";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { LoadingScreen } from "./components/loadingScreen/LoadingScreen";
 import { TodoList } from "./components/todo/types";
-import { getItems } from "./components/todo/api";
+import { getItems, updateAllItemIndices } from "./components/todo/api";
+import { usePrevious } from "./hooks/usePrevious";
 
 /**
  *
@@ -22,16 +23,19 @@ function App() {
   const [theme, setTheme] = useState("dark");
   const [user, loadingAuth] = useAuthState(auth);
   const [items, setItems] = useState<TodoList>(null);
+  const previousItems = usePrevious(items);
 
   // When items gets updated, write the new index values to Cloud Firestore
   useEffect(() => {
     let firestoreUpdate: NodeJS.Timeout;
     // Don't update Cloud Firestore documents on first render (when items is null)
-    if (items) {
+    // Also don't render when items goes from null to non-null
+    // I.e., only render when items changes and it's previous value was not null.
+    if (previousItems) {
       firestoreUpdate = setTimeout(() => {
         console.log("Updating order in Firestore");
-        // updateAllItemIndices(items);
-      }, 5000);
+        updateAllItemIndices(items!);
+      }, 1000);
     }
     // Clean up timer so no unnecessary writes are made to Firestore
     return () => clearTimeout(firestoreUpdate);

@@ -41,7 +41,6 @@ const List = ({
   const [filter, setFilter] = useState<Filter>(defaultFilter);
 
   if (!items) return <LoadingScreen />;
-  if (items.length === 0) return <div>{":("}</div>;
 
   /**
    * Update the filter option.
@@ -79,7 +78,7 @@ const List = ({
           id: docRef.id,
           title: title,
           isActive: true,
-          index: 0,
+          index: -1,
         },
         ...items,
       ];
@@ -156,6 +155,8 @@ const List = ({
 
       <CreateItem addTodo={onSubmitNewTodoHandler} />
 
+      {items.length === 0 && <div>{":("}</div>}
+
       <div className="w-full overflow-hidden rounded-md shadow-3lg-light dark:shadow-3lg-dark">
         <AnimatePresence>
           <motion.div
@@ -173,7 +174,7 @@ const List = ({
               layoutScroll
               className="no-scrollbar max-h-[290px] overflow-y-scroll md:max-h-[400px]"
             >
-              {getFilteredItemList().map((item, idx) => (
+              {getFilteredItemList().map((item) => (
                 <Item
                   key={item.id}
                   item={item}

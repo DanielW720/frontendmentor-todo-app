@@ -28,9 +28,10 @@
 - [x] React Context: Persist user display name on page reload
 - [x] Prompt user for re-authentication upon pressing "unregister"
 - [x] Drag n' drop items
-- [ ] App useEffect(): Do not execute setup code if rapid calls
+- [x] App useEffect(): Do not execute setup code if rapid calls
+- [x] Todo-list height animation
+- [ ] Exit modal on enter and escape
 - [ ] EmptyList-component
-- [ ] Todo-list height animation
 - [ ] Cash theme preference
 
 ## Else
