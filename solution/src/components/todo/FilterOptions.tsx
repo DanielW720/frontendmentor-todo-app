@@ -8,12 +8,12 @@ export const FilterOptions = ({
   filter: Filter;
 }) => {
   return (
-    <div className="mt-6 h-[3rem] shadow-3lg-light dark:shadow-3lg-dark md:hidden">
-      <div className="flex h-full w-full items-center justify-center rounded-md bg-veryLightGray font-bold text-darkGrayishBlue dark:bg-veryDarkDesaturatedBlue">
+    <div className="mt-6 h-[3rem]">
+      <div className="flex h-full w-full items-center justify-center rounded-md bg-veryLightGray font-bold text-darkGrayishBlue dark:bg-veryDarkDesaturatedBlue md:items-start md:p-[5px]">
         {["All", "Active", "Completed"].map((filterOption, idx) => {
           return (
             <button
-              key={idx}
+              key={filterOption}
               className={`cursor-pointer ${
                 filterOption === filter
                   ? "text-brightBlue hover:text-brightBlue"

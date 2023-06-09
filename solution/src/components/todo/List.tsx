@@ -160,12 +160,10 @@ const List = ({
       <div className="w-full overflow-hidden rounded-md shadow-3lg-light dark:shadow-3lg-dark">
         <AnimatePresence>
           <motion.div
-            style={{ overflow: "hidden" }}
-            initial={{ height: 0 }}
-            animate={{ height: "auto" }}
-            transition={{ duration: 0.5, type: "spring" }}
-            exit={{ height: 0 }}
-            key={"container"}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            exit={{ opacity: 0 }}
           >
             <Reorder.Group
               axis="y"
@@ -194,10 +192,12 @@ const List = ({
         />
       </div>
 
-      <FilterOptions
-        onFilterChangeHandler={onFilterChangeHandler}
-        filter={filter}
-      />
+      <div className="md:hidden">
+        <FilterOptions
+          onFilterChangeHandler={onFilterChangeHandler}
+          filter={filter}
+        />
+      </div>
 
       <p className="mt-10 text-center text-sm text-darkGrayishBlue">
         Drag and drop to reorder list

@@ -53,7 +53,7 @@ export const Item = ({
             </div>
           </button>
           <input
-            className={`ml-2 w-full cursor-text bg-inherit pr-1 text-xs font-bold outline-none md:text-[0.9rem] ${
+            className={`ml-2 w-full cursor-text bg-inherit pr-1 text-xs font-bold caret-brightBlue outline-none md:text-[0.9rem] ${
               item.isActive
                 ? "text-darkGrayishBlue dark:text-lightGrayishBlue "
                 : "line-through dark:text-darkGrayishBlue"
