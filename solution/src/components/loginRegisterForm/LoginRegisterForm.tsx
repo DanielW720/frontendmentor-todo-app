@@ -81,6 +81,12 @@ export default function LoginRegisterForm({
     setErrorModal({ show: false, errorMessageMarkup: <div></div> });
   };
 
+  const handleFormKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  };
+
   return (
     <div>
       <div
@@ -98,6 +104,7 @@ export default function LoginRegisterForm({
             type="email"
             required={true}
             pattern="[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]+"
+            onKeyDown={handleFormKeyPress}
             {...register("mail")}
           />
           {/* include validation with required or other standard HTML validation rules */}
@@ -107,6 +114,7 @@ export default function LoginRegisterForm({
             type="password"
             pattern="[0-9a-zA-Z]{8,20}"
             required={true}
+            onKeyDown={handleFormKeyPress}
             {...register("password")}
           />
           {/* When registring a new user, also request first and last name */}
@@ -117,6 +125,7 @@ export default function LoginRegisterForm({
               type="text"
               pattern="[0-9a-zA-Z]{1,20}"
               required={true}
+              onKeyDown={handleFormKeyPress}
               {...register("firstName")}
             />
           )}
@@ -127,6 +136,7 @@ export default function LoginRegisterForm({
               type="text"
               pattern="[0-9a-zA-Z]{1,20}"
               required={true}
+              onKeyDown={handleFormKeyPress}
               {...register("lastName")}
             />
           )}
@@ -135,6 +145,9 @@ export default function LoginRegisterForm({
           <input
             type="submit"
             value={loginForm ? "Login" : "Register"}
+            onKeyDown={(e) => {
+              if (errorModal.show) handleFormKeyPress(e);
+            }}
             className={`my-3 w-fit cursor-pointer self-center rounded-md border-[1px] border-veryDarkDesaturatedBlue p-1 font-bold text-veryDarkDesaturatedBlue transition-all duration-500 dark:border-white dark:text-white`}
           />
         </form>
