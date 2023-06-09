@@ -7,10 +7,8 @@ import { UserDisplayNameProvider } from "./contexts/userDisplayName/userDisplayN
 import { Drawer } from "./components/drawer/Drawer";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { LoadingScreen } from "./components/loadingScreen/LoadingScreen";
-import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import { TodoList } from "./components/todo/types";
 import { getItems } from "./components/todo/api";
-// import { updateAllItemIndices } from "./components/todo/api";
 
 /**
  *
@@ -33,7 +31,7 @@ function App() {
       firestoreUpdate = setTimeout(() => {
         console.log("Updating order in Firestore");
         // updateAllItemIndices(items);
-      }, 1000);
+      }, 5000);
     }
     // Clean up timer so no unnecessary writes are made to Firestore
     return () => clearTimeout(firestoreUpdate);
@@ -47,7 +45,7 @@ function App() {
       setItems(items);
     };
     if (user) fetchData();
-  }, [loadingAuth]);
+  }, [user]);
 
   // If loading, display a loading page
   if (loadingAuth) return <LoadingScreen />;
@@ -56,20 +54,7 @@ function App() {
     setTheme((prevState) => (prevState === "dark" ? "" : "dark"));
   };
 
-  const reorderItems = (startIndex: number, endIndex: number) => {
-    const result = Array.from(items!);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-    setItems(result);
-  };
-
-  const onDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
-    reorderItems(result.source.index, result.destination.index);
-  };
-
   return (
-    // <DragDropContext onDragEnd={onDragEnd}>
     <div className={`${theme} max-h-screen overflow-hidden`}>
       <div className="min-h-screen min-w-[275px] bg-white text-lightGrayishBlue dark:bg-veryDarkBlue">
         {user && <Drawer />}
@@ -90,7 +75,6 @@ function App() {
         </UserDisplayNameProvider>
       </div>
     </div>
-    // </DragDropContext>
   );
 }
 

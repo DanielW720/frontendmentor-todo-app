@@ -1,16 +1,14 @@
 import { CreateItem } from "./CreateItem";
 import { Item } from "./Item";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FilterOptions } from "./FilterOptions";
 import { TodoList, Filter, Todo } from "./types";
 import {
   deleteItem,
-  getItems,
   putItem,
   updateItemsActiveState,
   updateItemsTitle,
 } from "./api";
-import { Droppable } from "@hello-pangea/dnd";
 import TitleAndThemeSwitch from "./TitleAndThemeSwitch";
 import { FooterMenu } from "./FooterMenu";
 import { AnimatePresence, Reorder, motion } from "framer-motion";
@@ -159,14 +157,6 @@ const List = ({
       <CreateItem addTodo={onSubmitNewTodoHandler} />
 
       <div className="w-full overflow-hidden rounded-md shadow-3lg-light dark:shadow-3lg-dark">
-        {/* // List of items */}
-        {/* <Droppable droppableId="items" type="ITEM">
-            {(provided, _snapshot) => (
-              <div
-                ref={provided.innerRef}
-                className="bg-veryDarkDesaturatedBlue"
-                {...provided.droppableProps}
-              > */}
         <AnimatePresence>
           <motion.div
             style={{ overflow: "hidden" }}
@@ -183,25 +173,18 @@ const List = ({
               layoutScroll
               className="no-scrollbar max-h-[290px] overflow-y-scroll md:max-h-[400px]"
             >
-              {items.map((item, idx) => (
-                <Reorder.Item key={item.id} value={item}>
-                  <Item
-                    key={item.id}
-                    item={item}
-                    draggableIdx={idx}
-                    onStatusChangeHandler={onStatusChangeHandler}
-                    onRemoveItemHandler={onRemoveItemHandler}
-                    onUpdateItemTitleHandler={onUpdateItemTitleHandler}
-                  />
-                </Reorder.Item>
+              {getFilteredItemList().map((item, idx) => (
+                <Item
+                  key={item.id}
+                  item={item}
+                  onStatusChangeHandler={onStatusChangeHandler}
+                  onRemoveItemHandler={onRemoveItemHandler}
+                  onUpdateItemTitleHandler={onUpdateItemTitleHandler}
+                />
               ))}
             </Reorder.Group>
           </motion.div>
         </AnimatePresence>
-        {/* {provided.placeholder}
-               </div>
-            )} 
-           </Droppable> */}
         <FooterMenu
           itemsLeft={items.filter((item) => item.isActive).length}
           filter={filter}

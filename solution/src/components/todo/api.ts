@@ -102,28 +102,28 @@ export const updateItemsTitle = async (id: string, title: string) => {
   }
 };
 
-/**
- * Update the indices for each item in Cloud Firestore, according to the order of
- * the input items list.
- * @param items The list of items
- */
-export const updateAllItemIndices = async (items: NonNullable<TodoList>) => {
-  items.forEach(async (item, index) => await updateItemsIndex(item.id, index));
-};
+// /**
+//  * Update the indices for each item in Cloud Firestore, according to the order of
+//  * the input items list.
+//  * @param items The list of items
+//  */
+// export const updateAllItemIndices = async (items: NonNullable<TodoList>) => {
+//   items.forEach(async (item, index) => await updateItemsIndex(item.id, index));
+// };
 
-/**
- * Update the index of an item.
- * @param id Items ID
- * @param index Items new index
- */
-const updateItemsIndex = async (id: string, index: number) => {
-  const itemRef = doc(db, `users/${auth.currentUser?.uid}/items/${id}`);
-  try {
-    await updateDoc(itemRef, {
-      index: index,
-    });
-  } catch (e) {
-    console.error("Couldn't update documents index: ", e);
-    throw "UpdateDocumentsIndexError";
-  }
-};
+// /**
+//  * Update the index of an item.
+//  * @param id Items ID
+//  * @param index Items new index
+//  */
+// const updateItemsIndex = async (id: string, index: number) => {
+//   const itemRef = doc(db, `users/${auth.currentUser?.uid}/items/${id}`);
+//   try {
+//     await updateDoc(itemRef, {
+//       index: index,
+//     });
+//   } catch (e) {
+//     console.error("Couldn't update documents index: ", e);
+//     throw "UpdateDocumentsIndexError";
+//   }
+// };

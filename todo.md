@@ -10,6 +10,7 @@
 - [x] Unregister
 - [x] Delete user data upon unregister (user delete)
 - [x] Item objects: Store the sorting set by user
+- [ ] Prevent useEffect in App.tsx from writing to Firestore on first non-null-item render
 - [ ] Fix capital letters in first name and last name upon registration with email (cloud functions?)
 - [ ] Auth state persistence
 - [ ] Email link authentication
