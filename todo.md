@@ -9,8 +9,8 @@
 - [x] Firestore security rules
 - [x] Unregister
 - [x] Delete user data upon unregister (user delete)
+- [x] Prevent useEffect in App.tsx from writing to Firestore on first non-null-item render
 - [ ] Item objects: Store the sorting set by user (only when items ordering has changed)
-- [ ] Prevent useEffect in App.tsx from writing to Firestore on first non-null-item render
 - [ ] Fix capital letters in first name and last name upon registration with email (cloud functions?)
 - [ ] Auth state persistence
 - [ ] Email link authentication
@@ -30,7 +30,7 @@
 - [x] Drag n' drop items
 - [x] App useEffect(): Do not execute setup code if rapid calls
 - [x] Todo-list height animation
-- [ ] Exit modal on enter and escape
+- [x] Exit modal on enter and escape
 - [ ] EmptyList-component
 - [ ] Cash theme preference
 

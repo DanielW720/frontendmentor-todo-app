@@ -31,7 +31,7 @@ export const SignedOut = () => {
 
   return (
     <div className="relative bottom-20">
-      <div className="text-2xl flex justify-around text-darkGrayishBlue">
+      <div className="flex justify-around text-2xl text-darkGrayishBlue">
         <button
           className={`${
             loginForm && "text-brightBlue"
@@ -50,10 +50,12 @@ export const SignedOut = () => {
         </button>
       </div>
       <LoginForm loginForm={loginForm} />
-      <div className="dark:shadow-headerRight shadow-headerLeft bg-veryDarkDesaturatedBlue shadow-md-symmetric flex justify-around items-center rounded-lg mt-12 p-2 transition-all duration-500">
-        <img src={googleLogo} alt="Google logo" width="20px" />
-        <button onClick={onSignInWithGoogle}>Sign in with Google</button>
-      </div>
+      <button onClick={onSignInWithGoogle} className="w-full">
+        <div className="mt-12 flex items-center justify-around rounded-lg bg-veryDarkDesaturatedBlue p-2 shadow-md-symmetric shadow-headerLeft transition-all duration-500 dark:shadow-headerRight">
+          <img src={googleLogo} alt="Google logo" width="20px" />
+          <p>Sign in with Google</p>
+        </div>
+      </button>
     </div>
   );
 };
