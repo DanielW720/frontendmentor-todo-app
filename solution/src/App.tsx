@@ -35,7 +35,7 @@ function App() {
       firestoreUpdate = setTimeout(() => {
         console.log("Updating order in Firestore");
         // updateAllItemIndices(items!);
-      }, 1000);
+      }, 5000);
     }
     // Clean up timer so no unnecessary writes are made to Firestore
     return () => clearTimeout(firestoreUpdate);
