@@ -8,8 +8,8 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
-      transitionProperty: {
-        height: "height",
+      gridTemplateRows: {
+        emptyTodo: "40% 60%",
       },
       boxShadow: {
         "3lg-dark": "0 50px 70px 10px #101018",

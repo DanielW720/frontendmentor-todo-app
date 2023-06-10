@@ -13,6 +13,7 @@ import TitleAndThemeSwitch from "./TitleAndThemeSwitch";
 import { FooterMenu } from "./FooterMenu";
 import { AnimatePresence, Reorder, motion } from "framer-motion";
 import { LoadingScreen } from "../loadingScreen/LoadingScreen";
+import { EmptyListMessage } from "./EmptyListMessage";
 
 const defaultFilter: Filter = "All";
 
@@ -155,10 +156,18 @@ const List = ({
 
       <CreateItem addTodo={onSubmitNewTodoHandler} />
 
-      {items.length === 0 && <div>{":("}</div>}
-
-      <div className="w-full overflow-hidden rounded-md shadow-3lg-light dark:shadow-3lg-dark">
-        <AnimatePresence>
+      <div className="w-full overflow-hidden rounded-b-md shadow-3lg-light dark:shadow-3lg-dark">
+        <AnimatePresence mode="popLayout">
+          {items.length === 0 && (
+            <motion.div
+              key="empty-list-message"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <EmptyListMessage />
+            </motion.div>
+          )}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
