@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LoginForm from "../loginRegisterForm/LoginRegisterForm";
+import LoginForm from "./LoginRegisterForm";
 import googleLogo from "../../assets/images/google-logo.svg";
 import { auth, signInUser } from "../../firebase";
 import { useDisplayNameDispatch } from "../../contexts/userDisplayName/userDisplayNameContext";
@@ -30,7 +30,7 @@ export const SignedOut = () => {
   };
 
   return (
-    <div className="relative bottom-20">
+    <div className="relative bottom-20 md:w-60">
       <div className="flex justify-around text-2xl text-darkGrayishBlue">
         <button
           className={`${

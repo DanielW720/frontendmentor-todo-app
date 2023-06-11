@@ -88,75 +88,73 @@ export default function LoginRegisterForm({
   };
 
   return (
-    <div>
-      <div
-        className={`mt-4 rounded-md bg-gradient-to-r from-formLeft to-formRight`}
+    <div
+      className={`mt-4 rounded-md bg-gradient-to-r from-formLeft to-formRight`}
+    >
+      {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col justify-between p-2"
       >
-        {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col justify-between p-2"
-        >
-          {/* register your input into the hook by invoking the "register" function */}
+        {/* register your input into the hook by invoking the "register" function */}
+        <input
+          className="m-1 rounded-md px-2 py-1 text-brightBlue"
+          placeholder="Email"
+          type="email"
+          required={true}
+          pattern="[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]+"
+          onKeyDown={handleFormKeyPress}
+          {...register("mail")}
+        />
+        {/* include validation with required or other standard HTML validation rules */}
+        <input
+          className="m-1 rounded-md px-2 py-1 text-brightBlue"
+          placeholder="Password"
+          type="password"
+          pattern="[0-9a-zA-Z]{8,20}"
+          required={true}
+          onKeyDown={handleFormKeyPress}
+          {...register("password")}
+        />
+        {/* When registring a new user, also request first and last name */}
+        {!loginForm && (
           <input
             className="m-1 rounded-md px-2 py-1 text-brightBlue"
-            placeholder="Email"
-            type="email"
-            required={true}
-            pattern="[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]+"
-            onKeyDown={handleFormKeyPress}
-            {...register("mail")}
-          />
-          {/* include validation with required or other standard HTML validation rules */}
-          <input
-            className="m-1 rounded-md px-2 py-1 text-brightBlue"
-            placeholder="Password"
-            type="password"
-            pattern="[0-9a-zA-Z]{8,20}"
+            placeholder="First name"
+            type="text"
+            pattern="[0-9a-zA-Z]{1,20}"
             required={true}
             onKeyDown={handleFormKeyPress}
-            {...register("password")}
+            {...register("firstName")}
           />
-          {/* When registring a new user, also request first and last name */}
-          {!loginForm && (
-            <input
-              className="m-1 rounded-md px-2 py-1 text-brightBlue"
-              placeholder="First name"
-              type="text"
-              pattern="[0-9a-zA-Z]{1,20}"
-              required={true}
-              onKeyDown={handleFormKeyPress}
-              {...register("firstName")}
-            />
-          )}
-          {!loginForm && (
-            <input
-              className="m-1 rounded-md px-2 py-1 text-brightBlue"
-              placeholder="Last name"
-              type="text"
-              pattern="[0-9a-zA-Z]{1,20}"
-              required={true}
-              onKeyDown={handleFormKeyPress}
-              {...register("lastName")}
-            />
-          )}
-          {/* errors will return when field validation fails  */}
-          {errors.password && <span>This field is required</span>}
-          <input
-            type="submit"
-            value={loginForm ? "Login" : "Register"}
-            onKeyDown={(e) => {
-              if (errorModal.show) handleFormKeyPress(e);
-            }}
-            className={`my-3 w-fit cursor-pointer self-center rounded-md border-[1px] border-veryDarkDesaturatedBlue p-1 font-bold text-veryDarkDesaturatedBlue transition-all duration-500 dark:border-white dark:text-white`}
-          />
-        </form>
-        {errorModal.show && (
-          <Modal handleCloseModal={handleCloseModal}>
-            {errorModal.errorMessageMarkup}
-          </Modal>
         )}
-      </div>
+        {!loginForm && (
+          <input
+            className="m-1 rounded-md px-2 py-1 text-brightBlue"
+            placeholder="Last name"
+            type="text"
+            pattern="[0-9a-zA-Z]{1,20}"
+            required={true}
+            onKeyDown={handleFormKeyPress}
+            {...register("lastName")}
+          />
+        )}
+        {/* errors will return when field validation fails  */}
+        {errors.password && <span>This field is required</span>}
+        <input
+          type="submit"
+          value={loginForm ? "Login" : "Register"}
+          onKeyDown={(e) => {
+            if (errorModal.show) handleFormKeyPress(e);
+          }}
+          className={`my-3 w-fit cursor-pointer self-center rounded-md border-[1px] border-veryDarkDesaturatedBlue p-1 font-bold text-veryDarkDesaturatedBlue transition-all duration-500 dark:border-white dark:text-white`}
+        />
+      </form>
+      {errorModal.show && (
+        <Modal handleCloseModal={handleCloseModal}>
+          {errorModal.errorMessageMarkup}
+        </Modal>
+      )}
     </div>
   );
 }
