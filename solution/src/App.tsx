@@ -10,14 +10,7 @@ import { LoadingScreen } from "./components/loadingScreen/LoadingScreen";
 import { TodoList } from "./components/todo/types";
 import { getItems, updateAllItemIndices } from "./components/todo/api";
 import { usePrevious } from "./hooks/usePrevious";
-
-/**
- *
- * @param items
- */
-function sortItems(items: NonNullable<TodoList>) {
-  return items.sort((a, b) => a.index - b.index);
-}
+import { orderIsEqual, sortItems } from "./lib/items";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -31,11 +24,11 @@ function App() {
     // Don't update Cloud Firestore documents on first render (when items is null)
     // Also don't render when items goes from null to non-null
     // I.e., only render when items changes and it's previous value was not null.
-    if (previousItems) {
+    if (previousItems && !orderIsEqual(previousItems, items!)) {
       firestoreUpdate = setTimeout(() => {
         console.log("Updating order in Firestore");
-        // updateAllItemIndices(items!);
-      }, 5000);
+        updateAllItemIndices(items!);
+      }, 10000);
     }
     // Clean up timer so no unnecessary writes are made to Firestore
     return () => clearTimeout(firestoreUpdate);

@@ -44,14 +44,6 @@ const List = ({
   if (!items) return <LoadingScreen />;
 
   /**
-   * Update the filter option.
-   * @param filter The chosen filter
-   */
-  const onFilterChangeHandler = (filter: Filter) => {
-    setFilter(filter);
-  };
-
-  /**
    * Update the `isActive` status of an item with given id, both in Firestore and client side.
    * @param id Id of the item
    */
@@ -196,16 +188,13 @@ const List = ({
         <FooterMenu
           itemsLeft={items.filter((item) => item.isActive).length}
           filter={filter}
-          onFilterChangeHandler={onFilterChangeHandler}
+          onFilterChangeHandler={setFilter}
           deleteCompletedItems={deleteCompletedItems}
         />
       </div>
 
       <div className="md:hidden">
-        <FilterOptions
-          onFilterChangeHandler={onFilterChangeHandler}
-          filter={filter}
-        />
+        <FilterOptions onFilterChangeHandler={setFilter} filter={filter} />
       </div>
 
       <p className="mt-10 text-center text-sm text-darkGrayishBlue">
