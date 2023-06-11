@@ -11,7 +11,8 @@
 - [x] Delete user data upon unregister (user delete)
 - [x] Prevent useEffect in App.tsx from writing to Firestore on first non-null-item render
 - [ ] Item objects: Store the sorting set by user (only when items ordering has changed)
-- [ ] Fix capital letters in first name and last name upon registration with email (cloud functions?)
+- [ ] Secret keys in Cloud Functions or GCP Secret Manager
+- [ ] Fix capital letters in first name and last name upon registration with email (Cloud Functions?)
 - [ ] Auth state persistence
 - [ ] Email link authentication
 - [ ] [Differentiating email/password from email link](https://firebase.google.com/docs/auth/web/email-link-auth?hl=en&authuser=0)
@@ -31,7 +32,7 @@
 - [x] App useEffect(): Do not execute setup code if rapid calls
 - [x] Todo-list height animation
 - [x] Exit modal on enter and escape
-- [ ] EmptyList-component
+- [x] EmptyList-component
 - [ ] Cash theme preference
 
 ## Else
