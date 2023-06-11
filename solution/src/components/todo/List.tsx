@@ -148,7 +148,11 @@ const List = ({
 
       <CreateItem addTodo={onSubmitNewTodoHandler} />
 
-      <div className="w-full overflow-hidden rounded-b-md shadow-3lg-light dark:shadow-3lg-dark">
+      <div
+        className={`w-full overflow-hidden ${
+          items.length === 0 ? "rounded-b-md" : "rounded-md"
+        } shadow-3xl-light dark:shadow-3xl-dark`}
+      >
         <AnimatePresence mode="popLayout">
           {items.length === 0 && (
             <motion.div

@@ -53,7 +53,7 @@ function App() {
 
   return (
     <div className={`${theme} max-h-screen overflow-hidden`}>
-      <div className="min-h-screen min-w-[275px] bg-veryLightGrayishBlue text-lightGrayishBlue dark:bg-veryDarkBlue">
+      <div className="min-h-screen min-w-[275px] bg-white text-lightGrayishBlue dark:bg-veryDarkBlue">
         {user && <Drawer />}
         <UserDisplayNameProvider>
           <Header isDarkTheme={theme === "dark"} updateTheme={updateTheme} />
